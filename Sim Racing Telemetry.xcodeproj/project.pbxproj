@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5E92B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift */; };
+		85CAA5EC2B9B6F8200A85FBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5EB2B9B6F8200A85FBF /* ContentView.swift */; };
+		85CAA5EE2B9B6F8200A85FBF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5ED2B9B6F8200A85FBF /* Item.swift */; };
+		85CAA5F02B9B6F8400A85FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CAA5EF2B9B6F8400A85FBF /* Assets.xcassets */; };
+		85CAA5F32B9B6F8400A85FBF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CAA5F22B9B6F8400A85FBF /* Preview Assets.xcassets */; };
+		85CAA5FE2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5FD2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift */; };
+		85CAA6082B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6072B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift */; };
+		85CAA60A2B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6092B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		85CAA5FA2B9B6F8400A85FBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85CAA5DE2B9B6F8200A85FBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85CAA5E52B9B6F8200A85FBF;
+			remoteInfo = "Sim Racing Telemetry";
+		};
+		85CAA6042B9B6F8400A85FBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85CAA5DE2B9B6F8200A85FBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85CAA5E52B9B6F8200A85FBF;
+			remoteInfo = "Sim Racing Telemetry";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		85CAA5E62B9B6F8200A85FBF /* Sim Racing Telemetry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sim Racing Telemetry.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85CAA5E92B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sim_Racing_TelemetryApp.swift; sourceTree = "<group>"; };
+		85CAA5EB2B9B6F8200A85FBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		85CAA5ED2B9B6F8200A85FBF /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		85CAA5EF2B9B6F8400A85FBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		85CAA5F22B9B6F8400A85FBF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		85CAA5F42B9B6F8400A85FBF /* Sim_Racing_Telemetry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sim_Racing_Telemetry.entitlements; sourceTree = "<group>"; };
+		85CAA5F92B9B6F8400A85FBF /* Sim Racing TelemetryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sim Racing TelemetryTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85CAA5FD2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sim_Racing_TelemetryTests.swift; sourceTree = "<group>"; };
+		85CAA6032B9B6F8400A85FBF /* Sim Racing TelemetryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sim Racing TelemetryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85CAA6072B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sim_Racing_TelemetryUITests.swift; sourceTree = "<group>"; };
+		85CAA6092B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sim_Racing_TelemetryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		85CAA5E32B9B6F8200A85FBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CAA5F62B9B6F8400A85FBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CAA6002B9B6F8400A85FBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		85CAA5DD2B9B6F8200A85FBF = {
+			isa = PBXGroup;
+			children = (
+				85CAA5E82B9B6F8200A85FBF /* Sim Racing Telemetry */,
+				85CAA5FC2B9B6F8400A85FBF /* Sim Racing TelemetryTests */,
+				85CAA6062B9B6F8400A85FBF /* Sim Racing TelemetryUITests */,
+				85CAA5E72B9B6F8200A85FBF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		85CAA5E72B9B6F8200A85FBF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				85CAA5E62B9B6F8200A85FBF /* Sim Racing Telemetry.app */,
+				85CAA5F92B9B6F8400A85FBF /* Sim Racing TelemetryTests.xctest */,
+				85CAA6032B9B6F8400A85FBF /* Sim Racing TelemetryUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		85CAA5E82B9B6F8200A85FBF /* Sim Racing Telemetry */ = {
+			isa = PBXGroup;
+			children = (
+				85CAA5E92B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift */,
+				85CAA5EB2B9B6F8200A85FBF /* ContentView.swift */,
+				85CAA5ED2B9B6F8200A85FBF /* Item.swift */,
+				85CAA5EF2B9B6F8400A85FBF /* Assets.xcassets */,
+				85CAA5F42B9B6F8400A85FBF /* Sim_Racing_Telemetry.entitlements */,
+				85CAA5F12B9B6F8400A85FBF /* Preview Content */,
+			);
+			path = "Sim Racing Telemetry";
+			sourceTree = "<group>";
+		};
+		85CAA5F12B9B6F8400A85FBF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				85CAA5F22B9B6F8400A85FBF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		85CAA5FC2B9B6F8400A85FBF /* Sim Racing TelemetryTests */ = {
+			isa = PBXGroup;
+			children = (
+				85CAA5FD2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift */,
+			);
+			path = "Sim Racing TelemetryTests";
+			sourceTree = "<group>";
+		};
+		85CAA6062B9B6F8400A85FBF /* Sim Racing TelemetryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				85CAA6072B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift */,
+				85CAA6092B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift */,
+			);
+			path = "Sim Racing TelemetryUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		85CAA5E52B9B6F8200A85FBF /* Sim Racing Telemetry */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85CAA60D2B9B6F8400A85FBF /* Build configuration list for PBXNativeTarget "Sim Racing Telemetry" */;
+			buildPhases = (
+				85CAA5E22B9B6F8200A85FBF /* Sources */,
+				85CAA5E32B9B6F8200A85FBF /* Frameworks */,
+				85CAA5E42B9B6F8200A85FBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sim Racing Telemetry";
+			productName = "Sim Racing Telemetry";
+			productReference = 85CAA5E62B9B6F8200A85FBF /* Sim Racing Telemetry.app */;
+			productType = "com.apple.product-type.application";
+		};
+		85CAA5F82B9B6F8400A85FBF /* Sim Racing TelemetryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85CAA6102B9B6F8400A85FBF /* Build configuration list for PBXNativeTarget "Sim Racing TelemetryTests" */;
+			buildPhases = (
+				85CAA5F52B9B6F8400A85FBF /* Sources */,
+				85CAA5F62B9B6F8400A85FBF /* Frameworks */,
+				85CAA5F72B9B6F8400A85FBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				85CAA5FB2B9B6F8400A85FBF /* PBXTargetDependency */,
+			);
+			name = "Sim Racing TelemetryTests";
+			productName = "Sim Racing TelemetryTests";
+			productReference = 85CAA5F92B9B6F8400A85FBF /* Sim Racing TelemetryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		85CAA6022B9B6F8400A85FBF /* Sim Racing TelemetryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85CAA6132B9B6F8400A85FBF /* Build configuration list for PBXNativeTarget "Sim Racing TelemetryUITests" */;
+			buildPhases = (
+				85CAA5FF2B9B6F8400A85FBF /* Sources */,
+				85CAA6002B9B6F8400A85FBF /* Frameworks */,
+				85CAA6012B9B6F8400A85FBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				85CAA6052B9B6F8400A85FBF /* PBXTargetDependency */,
+			);
+			name = "Sim Racing TelemetryUITests";
+			productName = "Sim Racing TelemetryUITests";
+			productReference = 85CAA6032B9B6F8400A85FBF /* Sim Racing TelemetryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		85CAA5DE2B9B6F8200A85FBF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					85CAA5E52B9B6F8200A85FBF = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					85CAA5F82B9B6F8400A85FBF = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 85CAA5E52B9B6F8200A85FBF;
+					};
+					85CAA6022B9B6F8400A85FBF = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 85CAA5E52B9B6F8200A85FBF;
+					};
+				};
+			};
+			buildConfigurationList = 85CAA5E12B9B6F8200A85FBF /* Build configuration list for PBXProject "Sim Racing Telemetry" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 85CAA5DD2B9B6F8200A85FBF;
+			productRefGroup = 85CAA5E72B9B6F8200A85FBF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				85CAA5E52B9B6F8200A85FBF /* Sim Racing Telemetry */,
+				85CAA5F82B9B6F8400A85FBF /* Sim Racing TelemetryTests */,
+				85CAA6022B9B6F8400A85FBF /* Sim Racing TelemetryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		85CAA5E42B9B6F8200A85FBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85CAA5F32B9B6F8400A85FBF /* Preview Assets.xcassets in Resources */,
+				85CAA5F02B9B6F8400A85FBF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CAA5F72B9B6F8400A85FBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CAA6012B9B6F8400A85FBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		85CAA5E22B9B6F8200A85FBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85CAA5EC2B9B6F8200A85FBF /* ContentView.swift in Sources */,
+				85CAA5EE2B9B6F8200A85FBF /* Item.swift in Sources */,
+				85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CAA5F52B9B6F8400A85FBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85CAA5FE2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85CAA5FF2B9B6F8400A85FBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85CAA60A2B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift in Sources */,
+				85CAA6082B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		85CAA5FB2B9B6F8400A85FBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85CAA5E52B9B6F8200A85FBF /* Sim Racing Telemetry */;
+			targetProxy = 85CAA5FA2B9B6F8400A85FBF /* PBXContainerItemProxy */;
+		};
+		85CAA6052B9B6F8400A85FBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85CAA5E52B9B6F8200A85FBF /* Sim Racing Telemetry */;
+			targetProxy = 85CAA6042B9B6F8400A85FBF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		85CAA60B2B9B6F8400A85FBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		85CAA60C2B9B6F8400A85FBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		85CAA60E2B9B6F8400A85FBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Sim Racing Telemetry/Sim_Racing_Telemetry.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sim Racing Telemetry/Preview Content\"";
+				DEVELOPMENT_TEAM = 9XYS6EZZBW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.emptymonkey.Sim-Racing-Telemetry";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		85CAA60F2B9B6F8400A85FBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Sim Racing Telemetry/Sim_Racing_Telemetry.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sim Racing Telemetry/Preview Content\"";
+				DEVELOPMENT_TEAM = 9XYS6EZZBW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.emptymonkey.Sim-Racing-Telemetry";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		85CAA6112B9B6F8400A85FBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9XYS6EZZBW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.emptymonkey.Sim-Racing-TelemetryTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sim Racing Telemetry.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sim Racing Telemetry";
+			};
+			name = Debug;
+		};
+		85CAA6122B9B6F8400A85FBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9XYS6EZZBW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.emptymonkey.Sim-Racing-TelemetryTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sim Racing Telemetry.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sim Racing Telemetry";
+			};
+			name = Release;
+		};
+		85CAA6142B9B6F8400A85FBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9XYS6EZZBW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.emptymonkey.Sim-Racing-TelemetryUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Sim Racing Telemetry";
+			};
+			name = Debug;
+		};
+		85CAA6152B9B6F8400A85FBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9XYS6EZZBW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.emptymonkey.Sim-Racing-TelemetryUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Sim Racing Telemetry";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		85CAA5E12B9B6F8200A85FBF /* Build configuration list for PBXProject "Sim Racing Telemetry" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85CAA60B2B9B6F8400A85FBF /* Debug */,
+				85CAA60C2B9B6F8400A85FBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85CAA60D2B9B6F8400A85FBF /* Build configuration list for PBXNativeTarget "Sim Racing Telemetry" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85CAA60E2B9B6F8400A85FBF /* Debug */,
+				85CAA60F2B9B6F8400A85FBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85CAA6102B9B6F8400A85FBF /* Build configuration list for PBXNativeTarget "Sim Racing TelemetryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85CAA6112B9B6F8400A85FBF /* Debug */,
+				85CAA6122B9B6F8400A85FBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85CAA6132B9B6F8400A85FBF /* Build configuration list for PBXNativeTarget "Sim Racing TelemetryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85CAA6142B9B6F8400A85FBF /* Debug */,
+				85CAA6152B9B6F8400A85FBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 85CAA5DE2B9B6F8200A85FBF /* Project object */;
+}
