@@ -14,8 +14,8 @@
             filePath = "Sim Racing Telemetry/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -30,90 +30,234 @@
             filePath = "Sim Racing Telemetry/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "A1DF034C-2925-43DE-B35F-561BD7C4F416 - 16b5f15b577082ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;Sim_Racing_Telemetry.Gt7Data&gt;, Swift.ObjectIdentifier, &lt;&lt;opaque return type of static Charts.ChartContentBuilder.buildPartialBlock&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Charts.ChartContent, &#x3c4;_0_1: Charts.ChartContent&gt;(accumulated: &#x3c4;_0_0, next: &#x3c4;_0_1) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, Charts.Chart&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Sim_Racing_Telemetry.Gt7Data&gt;, Swift.ObjectIdentifier, &lt;&lt;opaque return type of static Charts.ChartContentBuilder.buildPartialBlock&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Charts.ChartContent, &#x3c4;_0_1: Charts.ChartContent&gt;(accumulated: &#x3c4;_0_0, next: &#x3c4;_0_1) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in Sim_Racing_Telemetry.ContentView.body.getter : some"
-                  moduleName = "Sim Racing Telemetry"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/niklas/Documents/xcode/Sim%20Racing%20Telemetry/Sim%20Racing%20Telemetry/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "22"
-                  endingLineNumber = "22"
-                  offsetFromSymbolStart = "236">
-               </Location>
-               <Location
-                  uuid = "A1DF034C-2925-43DE-B35F-561BD7C4F416 - 5d1293c6640f71d7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Sim_Racing_Telemetry.Gt7Data) -&gt; &lt;&lt;opaque return type of static Charts.ChartContentBuilder.buildPartialBlock&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Charts.ChartContent, &#x3c4;_0_1: Charts.ChartContent&gt;(accumulated: &#x3c4;_0_0, next: &#x3c4;_0_1) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;Sim_Racing_Telemetry.Gt7Data&gt;, Swift.ObjectIdentifier, &lt;&lt;opaque return type of static Charts.ChartContentBuilder.buildPartialBlock&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Charts.ChartContent, &#x3c4;_0_1: Charts.ChartContent&gt;(accumulated: &#x3c4;_0_0, next: &#x3c4;_0_1) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, Charts.Chart&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Sim_Racing_Telemetry.Gt7Data&gt;, Swift.ObjectIdentifier, &lt;&lt;opaque return type of static Charts.ChartContentBuilder.buildPartialBlock&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Charts.ChartContent, &#x3c4;_0_1: Charts.ChartContent&gt;(accumulated: &#x3c4;_0_0, next: &#x3c4;_0_1) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in Sim_Racing_Telemetry.ContentView.body.getter : some"
-                  moduleName = "Sim Racing Telemetry"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/niklas/Documents/xcode/Sim%20Racing%20Telemetry/Sim%20Racing%20Telemetry/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "22"
-                  endingLineNumber = "22"
-                  offsetFromSymbolStart = "832">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CCE37CC2-27CC-4966-9827-22DF3FA25D76"
-            shouldBeEnabled = "Yes"
+            uuid = "7E582398-4732-4432-B100-AB7F7F8B2370"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Sim Racing Telemetry/Sim_Racing_TelemetryApp.swift"
+            filePath = "Sim Racing Telemetry/Modules/UdpReader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "listen()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3BC20876-C4FD-4D64-945C-0E281B52D83A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Modules/UdpReader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "triggerNewDataEvent(gt7data:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB8297AD-A8DA-40BC-977C-980F446EFB61"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Modules/UdpReader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "saveToJSONFile(objects:fileName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B37AE9FD-0F7A-4706-9626-44C07EF613B9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "telemetryRaw"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D233DD6B-0F0B-422F-98E6-D7ED5D1B73C4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Modules/Lap.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "sampleLap"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB09783B-F93F-4EDE-AD4D-AE8344988295"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Modules/UdpReader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "triggerNewDataEvent(gt7data:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F17A7F76-A94B-4BEF-9596-4E845B484DFC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "CCE37CC2-27CC-4966-9827-22DF3FA25D76 - 14b270838d08d65d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.Notification) -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in Sim_Racing_Telemetry.Sim_Racing_TelemetryApp.body.getter : some"
-                  moduleName = "Sim Racing Telemetry"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/niklas/Documents/xcode/Sim%20Racing%20Telemetry/Sim%20Racing%20Telemetry/Sim_Racing_TelemetryApp.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "884">
-               </Location>
-               <Location
-                  uuid = "CCE37CC2-27CC-4966-9827-22DF3FA25D76 - 14b270838d08d63c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.Notification) -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in Sim_Racing_Telemetry.Sim_Racing_TelemetryApp.body.getter : some"
-                  moduleName = "Sim Racing Telemetry"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/niklas/Documents/xcode/Sim%20Racing%20Telemetry/Sim%20Racing%20Telemetry/Sim_Racing_TelemetryApp.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "42"
-                  endingLineNumber = "42"
-                  offsetFromSymbolStart = "844">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D3C39E42-703B-4DCD-B054-B485A8D3C97C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "telemetryRaw"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "90C65426-A87F-467B-8796-F9E6017DA65F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "telemetryRaw"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "068F70BE-F8AC-4FB0-8D41-D4F7C0B89C23"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9B2A6D06-E075-4AB5-A5A9-28E1A8A61D26"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F79BD4AD-9B77-44A5-AECD-DE78AE1F0929"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "telemetry"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DDF4382F-F2A1-40A6-AB2B-8AB9C61A8BC0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "latestData"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9EF3B75-0464-4A0F-AC40-E7ABC406DA80"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sim Racing Telemetry/Views/RaceView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "minValue"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

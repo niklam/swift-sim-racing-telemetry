@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		8538DDEC2B9B9C2700733B74 /* UdpReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538DDEB2B9B9C2700733B74 /* UdpReader.swift */; };
+		859C1B3E2B9DFF410074304B /* HostInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */; };
+		859C1B402B9E03C50074304B /* HeartbeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C1B3F2B9E03C50074304B /* HeartbeatManager.swift */; };
 		85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A9A3AF2B9CA085006BEDA2 /* TimeDisplay.swift */; };
 		85A9A3B22B9CA1BE006BEDA2 /* LapTimeDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A9A3B12B9CA1BE006BEDA2 /* LapTimeDisplay.swift */; };
+		85ACE7E92B9DACF0007516D2 /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ACE7E82B9DACF0007516D2 /* Lap.swift */; };
+		85ACE7F12B9DB330007516D2 /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85ACE7F02B9DB330007516D2 /* Clibsodium */; };
+		85ACE7F32B9DB330007516D2 /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85ACE7F22B9DB330007516D2 /* Sodium */; };
+		85B793FD2B9DEAD1001911AB /* DrivingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B793FC2B9DEAD1001911AB /* DrivingSession.swift */; };
+		85B794002B9DF473001911AB /* TelemetryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B793FF2B9DF473001911AB /* TelemetryView.swift */; };
+		85B794022B9DF4C2001911AB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B794012B9DF4C2001911AB /* MainView.swift */; };
 		85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5E92B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift */; };
-		85CAA5EC2B9B6F8200A85FBF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5EB2B9B6F8200A85FBF /* ContentView.swift */; };
+		85CAA5EC2B9B6F8200A85FBF /* RaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5EB2B9B6F8200A85FBF /* RaceView.swift */; };
 		85CAA5EE2B9B6F8200A85FBF /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5ED2B9B6F8200A85FBF /* Item.swift */; };
 		85CAA5F02B9B6F8400A85FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CAA5EF2B9B6F8400A85FBF /* Assets.xcassets */; };
 		85CAA5F32B9B6F8400A85FBF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CAA5F22B9B6F8400A85FBF /* Preview Assets.xcassets */; };
 		85CAA5FE2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA5FD2B9B6F8400A85FBF /* Sim_Racing_TelemetryTests.swift */; };
 		85CAA6082B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6072B9B6F8400A85FBF /* Sim_Racing_TelemetryUITests.swift */; };
 		85CAA60A2B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6092B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift */; };
-		85CAA6192B9B6FF100A85FBF /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85CAA6182B9B6FF100A85FBF /* Clibsodium */; };
-		85CAA61B2B9B6FF100A85FBF /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85CAA61A2B9B6FF100A85FBF /* Sodium */; };
-		85CAA61D2B9B700400A85FBF /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85CAA61C2B9B700400A85FBF /* Clibsodium */; };
-		85CAA61F2B9B700400A85FBF /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85CAA61E2B9B700400A85FBF /* Sodium */; };
 		85CAA6222B9B703500A85FBF /* Salsa20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6212B9B703500A85FBF /* Salsa20.swift */; };
 		85CAA6242B9B705E00A85FBF /* Gt7Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6232B9B705E00A85FBF /* Gt7Data.swift */; };
 /* End PBXBuildFile section */
@@ -45,11 +49,17 @@
 
 /* Begin PBXFileReference section */
 		8538DDEB2B9B9C2700733B74 /* UdpReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdpReader.swift; sourceTree = "<group>"; };
+		859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInputViewModel.swift; sourceTree = "<group>"; };
+		859C1B3F2B9E03C50074304B /* HeartbeatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartbeatManager.swift; sourceTree = "<group>"; };
 		85A9A3AF2B9CA085006BEDA2 /* TimeDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDisplay.swift; sourceTree = "<group>"; };
 		85A9A3B12B9CA1BE006BEDA2 /* LapTimeDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeDisplay.swift; sourceTree = "<group>"; };
+		85ACE7E82B9DACF0007516D2 /* Lap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lap.swift; sourceTree = "<group>"; };
+		85B793FC2B9DEAD1001911AB /* DrivingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingSession.swift; sourceTree = "<group>"; };
+		85B793FF2B9DF473001911AB /* TelemetryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryView.swift; sourceTree = "<group>"; };
+		85B794012B9DF4C2001911AB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		85CAA5E62B9B6F8200A85FBF /* Sim Racing Telemetry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sim Racing Telemetry.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85CAA5E92B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sim_Racing_TelemetryApp.swift; sourceTree = "<group>"; };
-		85CAA5EB2B9B6F8200A85FBF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		85CAA5EB2B9B6F8200A85FBF /* RaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceView.swift; sourceTree = "<group>"; };
 		85CAA5ED2B9B6F8200A85FBF /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		85CAA5EF2B9B6F8400A85FBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85CAA5F22B9B6F8400A85FBF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -68,8 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85CAA61D2B9B700400A85FBF /* Clibsodium in Frameworks */,
-				85CAA61F2B9B700400A85FBF /* Sodium in Frameworks */,
+				85ACE7F12B9DB330007516D2 /* Clibsodium in Frameworks */,
+				85ACE7F32B9DB330007516D2 /* Sodium in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,8 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85CAA6192B9B6FF100A85FBF /* Clibsodium in Frameworks */,
-				85CAA61B2B9B6FF100A85FBF /* Sodium in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +100,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		85B793FE2B9DF453001911AB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				85B794012B9DF4C2001911AB /* MainView.swift */,
+				85CAA5EB2B9B6F8200A85FBF /* RaceView.swift */,
+				85B793FF2B9DF473001911AB /* TelemetryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		85CAA5DD2B9B6F8200A85FBF = {
 			isa = PBXGroup;
 			children = (
@@ -116,9 +134,9 @@
 		85CAA5E82B9B6F8200A85FBF /* Sim Racing Telemetry */ = {
 			isa = PBXGroup;
 			children = (
+				85B793FE2B9DF453001911AB /* Views */,
 				85CAA6202B9B702900A85FBF /* Modules */,
 				85CAA5E92B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift */,
-				85CAA5EB2B9B6F8200A85FBF /* ContentView.swift */,
 				85CAA5ED2B9B6F8200A85FBF /* Item.swift */,
 				85CAA5EF2B9B6F8400A85FBF /* Assets.xcassets */,
 				85CAA5F42B9B6F8400A85FBF /* Sim_Racing_Telemetry.entitlements */,
@@ -167,6 +185,10 @@
 				85CAA6212B9B703500A85FBF /* Salsa20.swift */,
 				85CAA6232B9B705E00A85FBF /* Gt7Data.swift */,
 				8538DDEB2B9B9C2700733B74 /* UdpReader.swift */,
+				85ACE7E82B9DACF0007516D2 /* Lap.swift */,
+				85B793FC2B9DEAD1001911AB /* DrivingSession.swift */,
+				859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */,
+				859C1B3F2B9E03C50074304B /* HeartbeatManager.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -188,8 +210,8 @@
 			);
 			name = "Sim Racing Telemetry";
 			packageProductDependencies = (
-				85CAA61C2B9B700400A85FBF /* Clibsodium */,
-				85CAA61E2B9B700400A85FBF /* Sodium */,
+				85ACE7F02B9DB330007516D2 /* Clibsodium */,
+				85ACE7F22B9DB330007516D2 /* Sodium */,
 			);
 			productName = "Sim Racing Telemetry";
 			productReference = 85CAA5E62B9B6F8200A85FBF /* Sim Racing Telemetry.app */;
@@ -210,8 +232,6 @@
 			);
 			name = "Sim Racing TelemetryTests";
 			packageProductDependencies = (
-				85CAA6182B9B6FF100A85FBF /* Clibsodium */,
-				85CAA61A2B9B6FF100A85FBF /* Sodium */,
 			);
 			productName = "Sim Racing TelemetryTests";
 			productReference = 85CAA5F92B9B6F8400A85FBF /* Sim Racing TelemetryTests.xctest */;
@@ -268,7 +288,7 @@
 			);
 			mainGroup = 85CAA5DD2B9B6F8200A85FBF;
 			packageReferences = (
-				85CAA6162B9B6FE500A85FBF /* XCRemoteSwiftPackageReference "swift-sodium" */,
+				85ACE7EF2B9DB30D007516D2 /* XCRemoteSwiftPackageReference "swift-sodium" */,
 			);
 			productRefGroup = 85CAA5E72B9B6F8200A85FBF /* Products */;
 			projectDirPath = "";
@@ -312,14 +332,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85CAA5EC2B9B6F8200A85FBF /* ContentView.swift in Sources */,
+				85CAA5EC2B9B6F8200A85FBF /* RaceView.swift in Sources */,
+				85B794022B9DF4C2001911AB /* MainView.swift in Sources */,
+				859C1B3E2B9DFF410074304B /* HostInputViewModel.swift in Sources */,
 				85A9A3B22B9CA1BE006BEDA2 /* LapTimeDisplay.swift in Sources */,
+				859C1B402B9E03C50074304B /* HeartbeatManager.swift in Sources */,
 				85CAA5EE2B9B6F8200A85FBF /* Item.swift in Sources */,
 				8538DDEC2B9B9C2700733B74 /* UdpReader.swift in Sources */,
 				85CAA6242B9B705E00A85FBF /* Gt7Data.swift in Sources */,
 				85CAA6222B9B703500A85FBF /* Salsa20.swift in Sources */,
 				85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */,
 				85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */,
+				85B793FD2B9DEAD1001911AB /* DrivingSession.swift in Sources */,
+				85B794002B9DF473001911AB /* TelemetryView.swift in Sources */,
+				85ACE7E92B9DACF0007516D2 /* Lap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,7 +670,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		85CAA6162B9B6FE500A85FBF /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
+		85ACE7EF2B9DB30D007516D2 /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jedisct1/swift-sodium.git";
 			requirement = {
@@ -655,24 +681,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		85CAA6182B9B6FF100A85FBF /* Clibsodium */ = {
+		85ACE7F02B9DB330007516D2 /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 85CAA6162B9B6FE500A85FBF /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 85ACE7EF2B9DB30D007516D2 /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Clibsodium;
 		};
-		85CAA61A2B9B6FF100A85FBF /* Sodium */ = {
+		85ACE7F22B9DB330007516D2 /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 85CAA6162B9B6FE500A85FBF /* XCRemoteSwiftPackageReference "swift-sodium" */;
-			productName = Sodium;
-		};
-		85CAA61C2B9B700400A85FBF /* Clibsodium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 85CAA6162B9B6FE500A85FBF /* XCRemoteSwiftPackageReference "swift-sodium" */;
-			productName = Clibsodium;
-		};
-		85CAA61E2B9B700400A85FBF /* Sodium */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 85CAA6162B9B6FE500A85FBF /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 85ACE7EF2B9DB30D007516D2 /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;
 		};
 /* End XCSwiftPackageProductDependency section */

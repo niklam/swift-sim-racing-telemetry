@@ -6,31 +6,39 @@
 //
 
 import SwiftUI
-import SwiftData
 import Charts
+import Network
 
-struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+struct RaceView: View {
+    let telemetryDataNotificationPublisher = NotificationCenter.default.publisher(for: .telemetryDataUpdated)
     
     let visibleTickCount = 600
-    var throttleData: [Gt7Data] = []
     
-    var displayData: [Gt7Data] {
-        if throttleData.count > visibleTickCount {
-            return throttleData.suffix(visibleTickCount)
+    @StateObject var drivingSession: DrivingSession
+    
+    var telemetryRaw: [Gt7Data] {
+        if drivingSession.telemetry.count > 0 {
+            return drivingSession.telemetry
+        }
+        
+        return []
+    }
+    
+    var telemetry: [Gt7Data] {
+        if telemetryRaw.count > visibleTickCount {
+            return telemetryRaw.suffix(visibleTickCount)
         }
         
         var firstPackageId: Int {
-            if throttleData.count == 0 {
+            if telemetryRaw.count == 0 {
                 return 0
             }
             
-            return throttleData[0].packageId
+            return telemetryRaw[0].packageId
         }
         
         var array: [Gt7Data] = []
-        let fillInItemsNeeded = visibleTickCount - throttleData.count
+        let fillInItemsNeeded = visibleTickCount - telemetryRaw.count
         
         if fillInItemsNeeded > 0 {
             for i in 1...fillInItemsNeeded {
@@ -41,21 +49,21 @@ struct ContentView: View {
             }
         }
         
-        array.append(contentsOf: throttleData)
+        array.append(contentsOf: telemetryRaw)
         
         return array
     }
     
     var latestData: Gt7Data {
-        return displayData.last!
+        return telemetry.last!
     }
     
     var minValue: Int {
-        return Int(displayData[0].packageId)
+        return Int(telemetry[0].packageId)
     }
     
     var maxValue: Int {
-        return Int(displayData[displayData.count-1].packageId)
+        return Int(telemetry[telemetry.count-1].packageId)
     }
 
     var body: some View {
@@ -66,23 +74,27 @@ struct ContentView: View {
             }
             HStack {
                 Text("Fastest lap: ")
-                LapTimeDisplay(milliseconds: latestData.lapTimeFastestMs)
+                LapTimeDisplay(milliseconds: drivingSession.lapFastest.lapTime)
                     .foregroundColor(.purple)
                 
                 Text("Last lap: ")
                     .padding(.leading)
-                LapTimeDisplay(milliseconds: latestData.lapTimeLastMs)
-                    .foregroundColor(latestData.lapTimeLastMs <= latestData.lapTimeFastestMs ? .purple : .black)
+                LapTimeDisplay(milliseconds: drivingSession.lapLast.lapTime)
+                    .foregroundColor(drivingSession.lapLast.lapTime <= drivingSession.lapFastest.lapTime ? .purple : .black)
+                
+                Text("Calculated time: ")
+                    .padding(.leading)
+                LapTimeDisplay(milliseconds: Int(round(Float(drivingSession.lapLast.telemetry.count) * Float(1000/119.931234))))
             }
             VStack {
-                Text(String(format: "%0.0f km/h", round(displayData.last?.carSpeed ?? 0)))
+                Text(String(format: "%0.0f km/h", round(telemetry.last?.carSpeed ?? 0)))
                     .bold()
                     .font(.largeTitle)
             }
             VStack {
                 Text("Throttle and Brake").bold()
                 Chart {
-                    ForEach(self.displayData) {
+                    ForEach(self.telemetry) {
                         LineMark(x: .value("Tick", $0.packageId), y: .value("Throttle", $0.throttle),
                                  series: .value("Series", 1)
                         )
@@ -114,28 +126,14 @@ struct ContentView: View {
             }
             .padding(20)
         }
-        /*NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        .frame(minWidth: 600, idealWidth: 800, minHeight: 370, idealHeight: 400)
+        .onReceive(telemetryDataNotificationPublisher, perform: { notification in
+            guard let telemetryData = notification.userInfo?["telemetryData"] as? [Gt7Data] else {
+                return
             }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }*/
+            
+            drivingSession.telemetry.append(contentsOf: telemetryData)
+        })
     }
 
 //    private func addItem() {
@@ -154,7 +152,13 @@ struct ContentView: View {
 //    }
 }
 
-#Preview {
-    ContentView(throttleData: Gt7Data.sampleCollection)
-        .modelContainer(for: Item.self, inMemory: true)
+//#Preview {
+//    ContentView(lastLap: Lap.sampleLap, fastestLap: Lap())
+//        .modelContainer(for: Item.self, inMemory: true)
+//}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        RaceView(drivingSession: DrivingSession.sampleSession1)
+    }
 }

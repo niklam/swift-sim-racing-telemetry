@@ -10,9 +10,12 @@
 
 import Foundation
 
-class Gt7Data: NSObject, Identifiable {
+class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
     /// Package ID. Incremented by one for each package.
     var packageId: Int = 0
+    
+    /// Package arrival time as TimeInterval
+    var packageTime: TimeInterval? = 0
     
     /// Best lap time in MS
     var lapTimeFastestMs: Int = 0
@@ -21,10 +24,10 @@ class Gt7Data: NSObject, Identifiable {
     var lapTimeLastMs: Int = 0
     
     /// How many laps the race has in total, 0 for Time-Trials.
-    var totalLaps: Int16 = 0
+    var totalLaps: Int = 0
     
     /// Number of the current lap. 0 prior to going over starting line.
-    var currentLap: Int16 = 0
+    var currentLap: Int = 0
     
     /// The gear car currently is on. -1 = Neutral, 0 = Reverse
     var currentGear: UInt8 = 0
@@ -169,7 +172,9 @@ class Gt7Data: NSObject, Identifiable {
         self.packageId = Int(data.readInt32LE(at: 0x70))
         self.lapTimeFastestMs = Int(data.readInt32LE(at: 0x78))
         self.lapTimeLastMs = Int(data.readInt32LE(at: 0x7C))
-        self.currentLap = data.readInt16LE(at: 0x74)
+        
+        self.totalLaps = Int(data.readInt16LE(at: 0x76))    
+        self.currentLap = Int(data.readInt16LE(at: 0x74))
         
         let gearByte = data.readUInt8(at: 0x90)
         self.currentGear = gearByte & 0b00001111
@@ -207,7 +212,6 @@ class Gt7Data: NSObject, Identifiable {
 
         // Extract other data fields...
         self.timeOnTrack = TimeInterval(data.readInt32LE(at: 0x80) / 1000)
-        self.totalLaps = data.readInt16LE(at: 0x76)
         self.preRacePosition = data.readInt16LE(at: 0x84)
         self.totalPositions = data.readInt16LE(at: 0x86)
         self.carId = data.readInt32LE(at: 0x124)
