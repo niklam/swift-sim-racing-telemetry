@@ -9,8 +9,10 @@ import SwiftUI
 import Network
 
 struct MainView: View {
-    let telemetryDataNotificationPublisher = NotificationCenter.default.publisher(for: .telemetryDataUpdated)
-    @State private var drivingSession: DrivingSession = DrivingSession()
+    let telemetryDataNotificationPublisher = NotificationCenter.default.publisher(for: .newTelemetry)
+    
+    @StateObject private var drivingSession: DrivingSession = DrivingSession()
+    @StateObject private var telemetryViewDrivingSession: DrivingSession = DrivingSession()
     
     @State private var isConnected = false
     @State var packagesReveivedCount = 0
@@ -19,9 +21,9 @@ struct MainView: View {
     
     @FocusState private var isStartListeningFocused: Bool
     
-    var heartbeat: HeartbeatManager = HeartbeatManager(host: "localhost")
+//    var heartbeat: HeartbeatManager = HeartbeatManager(host: "localhost")
     
-    var listener: UdpReader = UdpReader()
+    var listener: TelemetryReader = SampleTelemetryReader()
     
     var body: some View {
         VStack {
@@ -66,7 +68,19 @@ struct MainView: View {
         .onAppear {
             isStartListeningFocused = true
             openWindowRaceView()
+            openWindowTelemetryView()
         }
+        .onReceive(telemetryDataNotificationPublisher, perform: { notification in
+            DispatchQueue.main.async {
+//                myDebugPrint("Received telemetry")
+                
+                guard let telemetryData = notification.userInfo?["telemetryDataArray"] as? [TelemetryData] else {
+                    return
+                }
+                
+                
+            }
+        })
     }
     
     func listeningButtonAction() {
@@ -74,26 +88,29 @@ struct MainView: View {
         self.isConnected.toggle()
         
         if isConnected == false {
-            self.heartbeat.stopHeartbeat()
+//            self.heartbeat.stopHeartbeat()
             self.listener.cancel()
         } else {
-            self.listener.host = NWEndpoint.Host(self.viewModel.host)
-            self.listener.listen()
             
-            self.heartbeat.host = self.viewModel.host
-            self.heartbeat.startHeartbeat()
+//            self.listener.host = NWEndpoint.Host(self.viewModel.host)
+//            self.listener.listen()
+            self.listener.fetch()
+            
+//            self.heartbeat.host = self.viewModel.host
+//            self.heartbeat.startHeartbeat()
         }
     }
     
     func openWindowRaceView() {
-        let contentView = RaceView(drivingSession: drivingSession)
+        let contentView = RaceView()
+            .environmentObject(drivingSession)
         
         // Create the window and set the content view.
         let newWindow = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
-        newWindow.center()
+//        newWindow.center()
 //        newWindow.setFrameAutosaveName("RacingView")
         newWindow.contentView = NSHostingView(rootView: contentView)
         newWindow.makeKeyAndOrderFront(nil)
@@ -105,13 +122,14 @@ struct MainView: View {
 
     func openWindowTelemetryView() {
         let contentView = TelemetryView()
+            .environmentObject(telemetryViewDrivingSession)
         
         // Create the window and set the content view.
         let newWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 800, height: 800),
+            contentRect: NSRect(x: 0, y: 0, width: 900, height: 800),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
-        newWindow.center()
+//        newWindow.center()
 //        newWindow.setFrameAutosaveName("TelemetryAnalyzer")
         newWindow.contentView = NSHostingView(rootView: contentView)
         newWindow.makeKeyAndOrderFront(nil)

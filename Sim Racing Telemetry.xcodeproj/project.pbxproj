@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8502C22F2BA0BAF000E33686 /* TelemetryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8502C22E2BA0BAF000E33686 /* TelemetryReader.swift */; };
+		8502C23B2BA0C1E000E33686 /* TelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8502C23A2BA0C1E000E33686 /* TelemetryData.swift */; };
+		8502C23D2BA0C6AF00E33686 /* Gt7TelemetryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8502C23C2BA0C6AF00E33686 /* Gt7TelemetryReader.swift */; };
+		8502C23F2BA34B8000E33686 /* SampleTelemetryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8502C23E2BA34B8000E33686 /* SampleTelemetryReader.swift */; };
 		8538DDEC2B9B9C2700733B74 /* UdpReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538DDEB2B9B9C2700733B74 /* UdpReader.swift */; };
+		8558564A2BA4AD4D00340230 /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855856492BA4AD4D00340230 /* DebugPrint.swift */; };
 		859C1B3E2B9DFF410074304B /* HostInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */; };
 		859C1B402B9E03C50074304B /* HeartbeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C1B3F2B9E03C50074304B /* HeartbeatManager.swift */; };
 		85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A9A3AF2B9CA085006BEDA2 /* TimeDisplay.swift */; };
@@ -48,7 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8502C22E2BA0BAF000E33686 /* TelemetryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryReader.swift; sourceTree = "<group>"; };
+		8502C23A2BA0C1E000E33686 /* TelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryData.swift; sourceTree = "<group>"; };
+		8502C23C2BA0C6AF00E33686 /* Gt7TelemetryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gt7TelemetryReader.swift; sourceTree = "<group>"; };
+		8502C23E2BA34B8000E33686 /* SampleTelemetryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTelemetryReader.swift; sourceTree = "<group>"; };
 		8538DDEB2B9B9C2700733B74 /* UdpReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdpReader.swift; sourceTree = "<group>"; };
+		855856492BA4AD4D00340230 /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
 		859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInputViewModel.swift; sourceTree = "<group>"; };
 		859C1B3F2B9E03C50074304B /* HeartbeatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartbeatManager.swift; sourceTree = "<group>"; };
 		85A9A3AF2B9CA085006BEDA2 /* TimeDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDisplay.swift; sourceTree = "<group>"; };
@@ -183,12 +193,17 @@
 			isa = PBXGroup;
 			children = (
 				85CAA6212B9B703500A85FBF /* Salsa20.swift */,
-				85CAA6232B9B705E00A85FBF /* Gt7Data.swift */,
 				8538DDEB2B9B9C2700733B74 /* UdpReader.swift */,
 				85ACE7E82B9DACF0007516D2 /* Lap.swift */,
 				85B793FC2B9DEAD1001911AB /* DrivingSession.swift */,
 				859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */,
 				859C1B3F2B9E03C50074304B /* HeartbeatManager.swift */,
+				8502C23A2BA0C1E000E33686 /* TelemetryData.swift */,
+				8502C22E2BA0BAF000E33686 /* TelemetryReader.swift */,
+				85CAA6232B9B705E00A85FBF /* Gt7Data.swift */,
+				8502C23C2BA0C6AF00E33686 /* Gt7TelemetryReader.swift */,
+				8502C23E2BA34B8000E33686 /* SampleTelemetryReader.swift */,
+				855856492BA4AD4D00340230 /* DebugPrint.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -336,6 +351,7 @@
 				85B794022B9DF4C2001911AB /* MainView.swift in Sources */,
 				859C1B3E2B9DFF410074304B /* HostInputViewModel.swift in Sources */,
 				85A9A3B22B9CA1BE006BEDA2 /* LapTimeDisplay.swift in Sources */,
+				8502C23F2BA34B8000E33686 /* SampleTelemetryReader.swift in Sources */,
 				859C1B402B9E03C50074304B /* HeartbeatManager.swift in Sources */,
 				85CAA5EE2B9B6F8200A85FBF /* Item.swift in Sources */,
 				8538DDEC2B9B9C2700733B74 /* UdpReader.swift in Sources */,
@@ -344,8 +360,12 @@
 				85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */,
 				85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */,
 				85B793FD2B9DEAD1001911AB /* DrivingSession.swift in Sources */,
+				8502C23D2BA0C6AF00E33686 /* Gt7TelemetryReader.swift in Sources */,
 				85B794002B9DF473001911AB /* TelemetryView.swift in Sources */,
+				8502C23B2BA0C1E000E33686 /* TelemetryData.swift in Sources */,
+				8558564A2BA4AD4D00340230 /* DebugPrint.swift in Sources */,
 				85ACE7E92B9DACF0007516D2 /* Lap.swift in Sources */,
+				8502C22F2BA0BAF000E33686 /* TelemetryReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Sim Racing Telemetry/Sim_Racing_Telemetry.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -534,6 +555,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Sim Racing Telemetry/Sim_Racing_Telemetry.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

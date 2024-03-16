@@ -125,12 +125,12 @@ public class UdpReader {
             
             self.currentLapNumber = gt7data.currentLap
             
-            if self.currentLapNumber > 1 {
-                let lap = Lap()
-                lap.telemetry = self.lapPrevious
-                lap.lapTime = gt7data.lapTimeLastMs
-//                saveToJSONFile(objects: lap, fileName: "sample-lap-\(gt7data.currentLap-1)")
-            }
+//            if self.currentLapNumber > 1 {
+//                let lap = Lap()
+//                lap.telemetry.append(TelemetryData.from(gt7Data: self.lapPrevious))
+//                lap.lapTime = gt7data.lapTimeLastMs
+////                saveToJSONFile(objects: lap, fileName: "sample-lap-\(gt7data.currentLap-1)")
+//            }
         }
         
         if gt7data.currentLap == self.currentLapNumber {
@@ -148,7 +148,7 @@ public class UdpReader {
         }
         
         self.prevPackageSentTime = currentTimeMillis
-        NotificationCenter.default.post(name: .telemetryDataUpdated, object: nil, userInfo: ["telemetryData": self.telemetryArray])
+        NotificationCenter.default.post(name: .newTelemetry, object: nil, userInfo: ["telemetryData": self.telemetryArray])
         self.telemetryArray = []
     }
     
@@ -197,41 +197,4 @@ public class UdpReader {
         
         return decryptedData
     }
-    
-    /// Doesn't belong to this class
-    func saveToJSONFile(objects: Lap, fileName: String) {
-        let encoder = JSONEncoder()
-        do {
-            let data = try encoder.encode(objects)
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let fileURL = documentDirectory.appendingPathComponent("\(fileName).json")
-                try data.write(to: fileURL)
-                print("Saved to JSON file at: \(fileURL)")
-            }
-        } catch {
-            print("Error saving objects to JSON: \(error)")
-        }
-    }
-
-    /// Doesn't belong to this class
-    func loadFromJSONFile(fileName: String) -> Lap? {
-        let decoder = JSONDecoder()
-        do {
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let fileURL = documentDirectory.appendingPathComponent("\(fileName).json")
-                let data = try Data(contentsOf: fileURL)
-                let objects = try decoder.decode(Lap.self, from: data)
-                return objects
-            }
-        } catch {
-            print("Error loading objects from JSON: \(error)")
-        }
-        return nil
-    }
-
 }
-
-extension Notification.Name {
-    static let telemetryDataUpdated = Notification.Name("telemetryDataUpdated")
-}
-

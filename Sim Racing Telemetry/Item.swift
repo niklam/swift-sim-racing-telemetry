@@ -11,8 +11,10 @@ import SwiftData
 @Model
 final class Item {
     var timestamp: Date
+//    var lap: Lap
     
-    init(timestamp: Date) {
+    init(timestamp: Date/*, lap: Lap*/) {
         self.timestamp = timestamp
+//        self.lap = lap
     }
 }

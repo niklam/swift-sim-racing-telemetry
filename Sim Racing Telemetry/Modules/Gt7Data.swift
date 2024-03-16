@@ -10,7 +10,7 @@
 
 import Foundation
 
-class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
+class Gt7Data {
     /// Package ID. Incremented by one for each package.
     var packageId: Int = 0
     
@@ -123,10 +123,10 @@ class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
     var tyreRL_Speed: Float = 0
     var tyreRR_Speed: Float = 0
     
-    var tyreFL_SlipRatio: String = ""
-    var tyreFR_SlipRatio: String = ""
-    var tyreRL_SlipRatio: String = ""
-    var tyreRR_SlipRatio: String = ""
+    var tyreFL_SlipRatio: Float = 1
+    var tyreFR_SlipRatio: Float = 1
+    var tyreRL_SlipRatio: Float = 1
+    var tyreRR_SlipRatio: Float = 1
     
     var suspensionFL: Float = 0
     var suspensionFR: Float = 0
@@ -142,7 +142,7 @@ class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
     var gear7: Float = 0
     var gear8: Float = 0
     
-    var position: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
+    var location: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
     var velocity: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
     var rotation: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
     var angularVelocity: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
@@ -162,8 +162,8 @@ class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
     var isTCSActive: Bool = false
     // Bits 12-15 are unspecified
     
-    override init() {
-        super.init()
+    init() {
+        
     }
     
     init?(data: Data) {
@@ -199,15 +199,15 @@ class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
 
         // Compute tyre slip ratios if car speed is greater than 0
         if carSpeed > 0 {
-            self.tyreFL_SlipRatio = String(format: "%6.2f", self.tyreFL_Speed / carSpeed)
-            self.tyreFR_SlipRatio = String(format: "%6.2f", self.tyreFR_Speed / carSpeed)
-            self.tyreRL_SlipRatio = String(format: "%6.2f", self.tyreRL_Speed / carSpeed)
-            self.tyreRR_SlipRatio = String(format: "%6.2f", self.tyreRR_Speed / carSpeed)
+            self.tyreFL_SlipRatio = self.tyreFL_Speed / carSpeed
+            self.tyreFR_SlipRatio = self.tyreFR_Speed / carSpeed
+            self.tyreRL_SlipRatio = self.tyreRL_Speed / carSpeed
+            self.tyreRR_SlipRatio = self.tyreRR_Speed / carSpeed
         } else {
-            self.tyreFL_SlipRatio = "N/A"
-            self.tyreFR_SlipRatio = "N/A"
-            self.tyreRL_SlipRatio = "N/A"
-            self.tyreRR_SlipRatio = "N/A"
+            self.tyreFL_SlipRatio = 1
+            self.tyreFR_SlipRatio = 1
+            self.tyreRL_SlipRatio = 1
+            self.tyreRR_SlipRatio = 1
         }
 
         // Extract other data fields...
@@ -252,7 +252,7 @@ class Gt7Data: NSObject, Identifiable, ObservableObject, Codable {
         self.gear7 = data.readFloatLE(at: 0x11C)
         self.gear8 = data.readFloatLE(at: 0x120)
         
-        self.position = SIMD3<Float>(data.readFloatLE(at: 0x04), data.readFloatLE(at: 0x08), data.readFloatLE(at: 0x0C))
+        self.location = SIMD3<Float>(data.readFloatLE(at: 0x04), data.readFloatLE(at: 0x08), data.readFloatLE(at: 0x0C))
         self.velocity = SIMD3<Float>(data.readFloatLE(at: 0x10), data.readFloatLE(at: 0x14), data.readFloatLE(at: 0x18))
         self.rotation = SIMD3<Float>(data.readFloatLE(at: 0x1C), data.readFloatLE(at: 0x20), data.readFloatLE(at: 0x24))
         self.angularVelocity = SIMD3<Float>(data.readFloatLE(at: 0x2C), data.readFloatLE(at: 0x30), data.readFloatLE(at: 0x34))
@@ -324,5 +324,72 @@ extension Gt7Data {
         }
         
         return array
+    }
+}
+
+
+extension TelemetryData {
+    static func from(gt7Data: Gt7Data) -> TelemetryData {
+        var telemetryData = TelemetryData()
+        
+        telemetryData.packageId = gt7Data.packageId
+        telemetryData.carId = Int(gt7Data.carId)
+        
+        telemetryData.carSpeed = gt7Data.carSpeed
+        
+        telemetryData.rpm = gt7Data.rpm
+        telemetryData.rpmAfterClutch = gt7Data.rpmAfterClutch
+        telemetryData.rpmRevWarning = Int(gt7Data.rpmRevWarning)
+        telemetryData.rpmRevLimiter = Int(gt7Data.rpmRevLimiter)
+        
+        if (gt7Data.gear1 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear1)
+        }
+        if (gt7Data.gear2 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear2)
+        }
+        if (gt7Data.gear3 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear3)
+        }
+        if (gt7Data.gear4 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear4)
+        }
+        if (gt7Data.gear5 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear5)
+        }
+        if (gt7Data.gear6 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear6)
+        }
+        if (gt7Data.gear7 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear7)
+        }
+        if (gt7Data.gear8 > 0) {
+            telemetryData.gearRatios.append(gt7Data.gear8)
+        }
+        
+        telemetryData.throttle = gt7Data.throttle
+        telemetryData.brake = gt7Data.brake
+        telemetryData.clutch = gt7Data.clutch
+        telemetryData.clutchEngaged = gt7Data.clutchEngaged
+        
+        telemetryData.lapTimeLastMs = gt7Data.lapTimeLastMs
+        telemetryData.lapTimeFastestMs = gt7Data.lapTimeFastestMs
+        
+        telemetryData.currentLapNumber = gt7Data.currentLap
+        telemetryData.totalNumberOfLaps = gt7Data.totalLaps
+        
+        telemetryData.gridPosition = Int(gt7Data.preRacePosition)
+        telemetryData.gridSize = Int(gt7Data.totalPositions)
+        
+        telemetryData.fuelCapacity = gt7Data.fuelCapacity
+        telemetryData.currentFuelLeft = gt7Data.currentFuel
+        
+        telemetryData.currentGear = Int(gt7Data.currentGear)
+        telemetryData.suggestedGear = Int(gt7Data.suggestedGear)
+        
+        telemetryData.isInRace = gt7Data.isInRace
+        telemetryData.isPaused = gt7Data.isPaused
+        
+        return telemetryData
     }
 }
