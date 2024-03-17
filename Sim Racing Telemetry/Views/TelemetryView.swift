@@ -11,218 +11,86 @@ import Charts
 import Combine
 
 struct TelemetryView: View {
-    @EnvironmentObject var drivingSession: DrivingSession
-//    @StateObject var drivingSession: DrivingSession
-    
     @Environment(\.modelContext) private var modelContext
+    
+    @EnvironmentObject var drivingSession: DrivingSession
+    
     @Query private var items: [Item]
     
-    private var lap: Lap {
-        return drivingSession.lapLast
-    }
-    
-    private var minValue: Int {
-        return lap.telemetry.first?.packageId ?? 0
-    }
-    
-    private var maxValue: Int {
-        return lap.telemetry.last?.packageId ?? 100
-    }
-    
-    private var _visibleTicks: Int?
-    
-    private var visibleTicks: Int {
-        get {
-            if let ticks = _visibleTicks {
-                return ticks
-            } else {
-                return max(lap.telemetry.count, 1000)
-            }
-        }
-        set {
-            _visibleTicks = newValue
-        }
-    }
-    
-    private var calculatedLapTime: Int {
-        let startTime: TimeInterval = lap.telemetry.first?.packageTime ?? 0
-        let endTime: TimeInterval = lap.telemetry.last?.packageTime ?? 0
-        
-        let difference = Int((endTime - startTime) * 1000)
-        
-        return difference
-    }
+    @State private var sessions: [UUID: DrivingSession] = [:]
     
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp)")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                    if let tmpSession = sessions[item.sessionUuid] {
+                        NavigationLink {
+                            SingleDrivingSessionTelemetryView(drivingSession: tmpSession)
+                        } label: {
+                            Text(tmpSession.name)
+                        }
+                        .contextMenu(menuItems: {
+                            Button(action: {
+                                self.deleteSessions(offsets: IndexSet(integer: index))
+                            }, label: {
+                                Image(systemName: "trash")
+                                Text("Delete session")
+                            })
+                        })
                     }
                 }
+                .onDelete(perform: deleteSessions)
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+//            .toolbar {
+//                /*ToolbarItem {
+//                    Button(action: addItem) {
+//                        Label("Add Item", systemImage: "plus")
+//                    }
+//                }*/
+//            }
         } detail: {
-            HStack {
-                Text("Lap \(drivingSession.currentlyOnLap)")
-                    .font(.title)
-            }
-            HStack {
-                Text("Last lap: ")
-                    .padding(.leading)
-                LapTimeDisplay(milliseconds: drivingSession.lapLast.lapTime)
-                    .foregroundColor(drivingSession.lapLast.lapTime <= drivingSession.lapFastest.lapTime ? .purple : .black)
-                
-                Text("Fastest lap: ")
-                LapTimeDisplay(milliseconds: drivingSession.lapFastest.lapTime)
-                    .foregroundColor(.purple)
-                
-//                Text("Calculated time: ")
-//                    .padding(.leading)
-//                LapTimeDisplay(milliseconds: Int(round(Float(drivingSession.lapLast.telemetry.count) * Float(1000/119.931234))))
-                LapTimeDisplay(milliseconds: calculatedLapTime)
-            }
-            
-            VStack {
-                Text("Throttle and Break").bold()
-                Chart {
-                    ForEach(0..<lap.telemetry.count, id: \.self) { index in
-                        let item = self.lap.telemetry[index]
-                        
-                        LineMark(x: .value("Tick", index), y: .value("Throttle", item.throttle),
-                                 series: .value("Series", 1)
-                        )
-                        .foregroundStyle(by: .value("Value", "Throttle"))
-                        
-                        LineMark(x: .value("Tick", index), y: .value("Brake", item.brake),
-                                 series: .value("Series", 2)
-                        )
-                        .foregroundStyle(by: .value("Value", "Brake"))
-                    }
-                }
-                .chartForegroundStyleScale([
-                    "Throttle": .green,
-                    "Brake": .red
-                ]).chartYAxis {
-                    AxisMarks(
-                        values: [0, 50, 100]
-                    ) {
-//                        AxisValueLabel(format: Decimal.FormatStyle.Percent.percent.scale(1))
-                        AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
-                    }
-                    
-                    AxisMarks(
-                        values: [25, 75]
-                    ) {
-                        AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [2,4]))
-                    }
-                }
-                .chartYScale(domain: [0, 100])
-//                .chartXAxis(.hidden)
-                .chartXScale(domain: [0, lap.telemetry.count], type: .linear)
-                .chartXVisibleDomain(length: visibleTicks)
-                .chartScrollableAxes(.horizontal)
-            }
-            .padding(20)
-            
-            VStack {
-                Text("Speed").bold()
-                Chart {
-                    ForEach(0..<lap.telemetry.count, id: \.self) { index in
-                        let item = self.lap.telemetry[index]
-                        
-                        LineMark(x: .value("Tick", index), y: .value("Speed", item.carSpeed),
-                                 series: .value("Series", 1)
-                        )
-                        .foregroundStyle(by: .value("Value", "Speed"))
-                    }
-                }
-                .chartForegroundStyleScale([
-                    "Speed": .green
-                ])
-                .chartYAxis {
-                    AxisMarks(position: .leading, values: .automatic){
-                        axis in
-                        AxisTick()
-                        AxisGridLine()
-//                        AxisValueLabel()
-                    }
-                    AxisMarks(position: .trailing, values: .automatic){
-                        axis in
-                        AxisTick()
-                        AxisGridLine()
-//                        AxisValueLabel()
-                    }
-                }
-//                .chartYScale(domain: [0, lap.telemetry.first?.rpmRevLimiter ?? 10000])
-//                .chartXAxis(.hidden)
-                .chartXScale(domain: [0, lap.telemetry.count], type: .linear)
-                .chartXVisibleDomain(length: visibleTicks)
-                .chartScrollableAxes(.horizontal)
-            }
-            .padding(20)
-            
-            
-            VStack {
-                Text("RPM").bold()
-                Chart {
-                    ForEach(0..<lap.telemetry.count, id: \.self) { index in
-                        let item = self.lap.telemetry[index]
-                        
-                        LineMark(x: .value("Tick", index), y: .value("RPM", item.rpm),
-                                 series: .value("Series", 2)
-                        )
-                        .foregroundStyle(by: .value("Value", "RPM"))
-                    }
-                }
-                .chartForegroundStyleScale([
-                    "RPM": .red
-                ])
-                .chartYAxis {
-                    AxisMarks(position: .leading, values: .automatic){
-                        axis in
-                        AxisTick()
-                        AxisGridLine()
-//                        AxisValueLabel()
-                    }
-                    AxisMarks(position: .trailing, values: .automatic){
-                        axis in
-                        AxisTick()
-                        AxisGridLine()
-//                        AxisValueLabel()
-                    }
-                }
-//                .chartYScale(domain: [0, lap.telemetry.first?.rpmRevLimiter ?? 10000])
-//                .chartXAxis(.hidden)
-                .chartXScale(domain: [0, lap.telemetry.count], type: .linear)
-                .chartXVisibleDomain(length: visibleTicks)
-//                .chartScrollableAxes(.horizontal)
-            }
-            .padding(20)
+            Text("Hello!")
         }
 //        .onChange(of: drivingSession) { oldValue, newValue in
 //            addItem(lap: drivingSession.lapLast)
 //        }
+        .onAppear {
+            let fm = FileManager.default
+            let path = String(describing: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path)
+            debugPrint(path)
+            
+            do {
+                let sessionMainFileRexEx = /^session\-(?<sessionId>[0-9]+)\-1\..*$/
+                let items = try fm.contentsOfDirectory(atPath: path)
+                
+                for item in items {
+                    let fileName = String("\(item)")
+                    if let match = try sessionMainFileRexEx.firstMatch(in: fileName) {
+                        let sessionId: String = String(describing: match.1)
+                        
+                        guard let drivingSession = DrivingSession.loadMultiFileSessionJson(sessionId: sessionId) else {
+                            continue
+                        }
+                        
+                        addItem(drivingSession: drivingSession)
+                        sessions[drivingSession.id] = drivingSession
+                    }
+                }
+            } catch {
+                print("Couldn't read \(path)")
+            }
+        }
     }
     
-    private func addItem(/*lap: Lap*/) {
+    private func addItem(drivingSession: DrivingSession) {
         withAnimation {
-            let newItem = Item(timestamp: Date()/*, lap: lap*/)
+            let newItem = Item(sessionUuid: drivingSession.id)
             modelContext.insert(newItem)
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteSessions(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])

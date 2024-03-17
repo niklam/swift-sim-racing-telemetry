@@ -11,6 +11,8 @@ protocol TelemetryReader {
     func fetch()
     
     func cancel()
+    
+    func setHost(_ host: String)
 }
 
 class TelemetryReaderNotification {

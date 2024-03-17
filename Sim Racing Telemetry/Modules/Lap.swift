@@ -9,14 +9,40 @@ import Foundation
 import SwiftData
 
 
-class Lap: Codable {
+class Lap: Codable, Identifiable {
+    public var id: UUID = UUID()
     public var telemetry: [TelemetryData] = []
     public var lapTime: Int = 0
     public var lapNumber: Int = 0
     public var timeStamp: TimeInterval = Date().timeIntervalSince1970
+    
+    enum CodingKeys: String, CodingKey {
+        case id, telemetry, lapTime, lapNumber, timeStamp
+    }
+    
+    init() {
+    }
 
-    private enum CodingKeys: String, CodingKey {
-        case telemetry, lapTime, lapNumber, timeStamp
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Attempt to decode the `id` if it exists, otherwise keep the default UUID
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        telemetry = try container.decode([TelemetryData].self, forKey: .telemetry)
+        lapTime = try container.decode(Int.self, forKey: .lapTime)
+        lapNumber = try container.decode(Int.self, forKey: .lapNumber)
+        timeStamp = try container.decode(TimeInterval.self, forKey: .timeStamp)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        // Encode all properties, including the `id`
+        try container.encode(id, forKey: .id)
+        try container.encode(telemetry, forKey: .telemetry)
+        try container.encode(lapTime, forKey: .lapTime)
+        try container.encode(lapNumber, forKey: .lapNumber)
+        try container.encode(timeStamp, forKey: .timeStamp)
     }
 }
 

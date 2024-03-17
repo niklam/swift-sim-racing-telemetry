@@ -330,12 +330,13 @@ extension Gt7Data {
 
 extension TelemetryData {
     static func from(gt7Data: Gt7Data) -> TelemetryData {
-        var telemetryData = TelemetryData()
+        let telemetryData = TelemetryData()
         
         telemetryData.packageId = gt7Data.packageId
         telemetryData.carId = Int(gt7Data.carId)
         
         telemetryData.carSpeed = gt7Data.carSpeed
+        telemetryData.carTopSpeedCalculated = Int(gt7Data.carTopSpeedCalculated)
         
         telemetryData.rpm = gt7Data.rpm
         telemetryData.rpmAfterClutch = gt7Data.rpmAfterClutch
@@ -389,6 +390,10 @@ extension TelemetryData {
         
         telemetryData.isInRace = gt7Data.isInRace
         telemetryData.isPaused = gt7Data.isPaused
+        
+        telemetryData.position = gt7Data.location
+        telemetryData.velocity = gt7Data.velocity
+        telemetryData.angularVelocity = gt7Data.angularVelocity
         
         return telemetryData
     }

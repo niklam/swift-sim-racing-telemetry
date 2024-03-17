@@ -45,7 +45,7 @@ struct RaceView: View {
                 
                 Text("Currently on lap: \(latestData.currentLapNumber)")
                 
-                Text("PackageId: \(latestData.packageId)")
+//                Text("PackageId: \(latestData.packageId)")
             }
             
             HStack {
@@ -112,7 +112,7 @@ struct RaceView: View {
 //        .modelContainer(for: Item.self, inMemory: true)
 //}
 
-struct ContentView_Previews: PreviewProvider {
+struct RaceView_Previews: PreviewProvider {
     static var previews: some View {
         let _ = {
             myDebugPrint("--- Init Preview ---")

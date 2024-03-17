@@ -8,9 +8,13 @@
 import Foundation
 
 class DrivingSession: NSObject, Identifiable, ObservableObject, Codable {
+    var id: UUID = UUID()
+    
     var sessionStarted: TimeInterval = Date().timeIntervalSince1970
     
     var game: SupportedGames = .GT7
+    
+    var name: String = "New session"
     
     /// How many laps the race is
     @Published var totalLaps: Int = 0
@@ -38,7 +42,7 @@ class DrivingSession: NSObject, Identifiable, ObservableObject, Codable {
     @Published var telemetry: [TelemetryData] = []
     
     private enum CodingKeys: String, CodingKey {
-        case sessionStarted, game, /*totalLaps, currentlyOnLap, laps, lapCurrent, lapFastest, lapLast,*/ telemetry
+        case id, sessionStarted, game, name, totalLaps, currentlyOnLap, laps, lapCurrent, lapFastest, lapLast, telemetry
     }
     
     public enum SupportedGames: String, Codable {
@@ -52,62 +56,93 @@ class DrivingSession: NSObject, Identifiable, ObservableObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         sessionStarted = try container.decode(TimeInterval.self, forKey: .sessionStarted)
         game = try container.decode(SupportedGames.self, forKey: .game)
-//        _totalLaps = Published(initialValue: try container.decode(Int.self, forKey: .totalLaps))
-//        _currentlyOnLap = Published(initialValue: try container.decode(Int.self, forKey: .currentlyOnLap))
-//        _laps = Published(initialValue: try container.decode([Lap].self, forKey: .laps))
-//        _lapCurrent = Published(initialValue: try container.decode(Lap.self, forKey: .lapCurrent))
-//        _lapFastest = Published(initialValue: try container.decode(Lap.self, forKey: .lapFastest))
-//        _lapLast = Published(initialValue: try container.decode(Lap.self, forKey: .lapLast))
-        _telemetry = Published(initialValue: try container.decode([TelemetryData].self, forKey: .telemetry))
+        _totalLaps = Published(initialValue: try container.decode(Int.self, forKey: .totalLaps))
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        
+        if name == "" {
+            let date = Date(timeIntervalSinceReferenceDate: sessionStarted)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let formattedDate = dateFormatter.string(from: date)
+            name = formattedDate
+        }
+        
+        var storedTelemetry: [TelemetryData] = try container.decode([TelemetryData].self, forKey: .telemetry)
+        
+        super.init()
+        
+        addTelemetry(storedTelemetry)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        try container.encode(id, forKey: .id)
         try container.encode(sessionStarted, forKey: .sessionStarted)
+        try container.encode(name, forKey: .name)
+        try container.encode(totalLaps, forKey: .totalLaps)
         try container.encode(game, forKey: .game)
         try container.encode(telemetry, forKey: .telemetry)
     }
 }
 
 extension DrivingSession {
-    public func processTelemetry(telemetryCollection: [TelemetryData]) {
+    public func addTelemetry(_ telemetryCollection: [TelemetryData], onLapCompletion: ((DrivingSession, Int) -> Void)? = nil) {
         var currentLap = self.telemetry.last?.currentLapNumber ?? 0
         
         telemetryCollection.forEach { telemetry in
-            if telemetry.packageId == 813596 {
-                self.reset()
-                currentLap = 0
-            }
             
+            var likelyRestarted = currentLap > 0 && telemetry.currentLapNumber == 0
+            
+            if telemetry.isPaused {
+                return
+            }
+
             if telemetry.currentLapNumber == 0 {
                 self.totalLaps = telemetry.totalNumberOfLaps
-                self.gridPosition = telemetry.preRacePosition
-                self.gridSize = telemetry.numberOfCarsStartingRace
+                self.gridPosition = telemetry.gridPosition
+                self.gridSize = telemetry.gridSize
+                
+                self.lapCurrent = Lap()
+                self.telemetry = []
+                
+                return
+            }
+            
+            if telemetry.isInRace == false {
+                return
             }
             
             self.lapCurrent.telemetry.append(telemetry)
             self.telemetry.append(telemetry)
             
-            if currentLap != telemetry.currentLapNumber && currentLap != 0 {
-                currentLap = telemetry.currentLapNumber
-                
-                self.lapLast = self.lapCurrent
-                self.lapLast.lapTime = telemetry.lapTimeLastMs
-                
-                if self.lapFastest.lapTime == 0
-                    || self.lapFastest.lapTime > self.lapLast.lapTime {
-                    self.lapFastest = self.lapLast
+            var raceIsOver = (self.totalLaps > 0 && telemetry.currentLapNumber > self.totalLaps)
+            
+            if currentLap != telemetry.currentLapNumber {
+                if currentLap != 0 {
+                    self.lapLast = self.lapCurrent
+                    self.lapLast.lapTime = telemetry.lapTimeLastMs
+                    
+                    self.laps.append(lapLast)
+                    
+                    if self.lapFastest.lapTime <= 0
+                        || self.lapFastest.lapTime > self.lapLast.lapTime {
+                        self.lapFastest = self.lapLast
+                    }
+                    
+                    self.lapCurrent = Lap()
+                    self.lapCurrent.lapNumber = telemetry.currentLapNumber
+                    self.lapCurrent.telemetry.append(telemetry)
                 }
                 
-                self.lapCurrent = Lap()
-                self.lapCurrent.telemetry.append(telemetry)
+                self.currentlyOnLap = telemetry.currentLapNumber
                 
-                self.currentlyOnLap = currentLap
+                onLapCompletion?(self, currentLap)
                 
-                //telemetryViewDrivingSession.clone(drivingSession: drivingSession)
+                currentLap = telemetry.currentLapNumber
             }
         }
     }
@@ -153,30 +188,51 @@ extension DrivingSession {
         telemetry = drivingSession.telemetry
     }
     
+    static var _sampleSession1: DrivingSession?
+    
     static var sampleSession1: DrivingSession {
-        let session = DrivingSession()
         
-        session.totalLaps = 5
-        session.currentlyOnLap = 2
-        session.lapLast = Lap.sampleLap
-        session.lapFastest = Lap.sampleLap
+        if _sampleSession1 != nil {
+            return _sampleSession1!
+        }
         
-        session.lapCurrent = Lap.sampleLap
-        session.lapCurrent.lapTime = 0
-        session.lapCurrent.telemetry = Array(session.lapCurrent.telemetry.prefix(1500))
+        guard let session = DrivingSession.loadMultiFileSessionJson(sessionId: "1710682718") else {
+            myDebugPrint("Failed to load sample session data, returning empty session")
+            
+            return DrivingSession()
+        }
         
-        session.telemetry = session.lapCurrent.telemetry
+        _sampleSession1 = session
         
         return session
     }
     
     /// Doesn't belong to this class
-    public static func saveToJSONFile(objects: DrivingSession) {
+    public static func saveToJSONFile(objects: DrivingSession, storeMultipart: Bool = true) {
+        if objects.telemetry.count == 0 {
+            print("Won't save empty sessions")
+            
+            return
+        }
+        
         let encoder = JSONEncoder()
+        
+        var sessionToStore: DrivingSession = objects
+        
+        var fileName = "session-\(Int(objects.sessionStarted))"
+        
+        if storeMultipart {
+            sessionToStore = DrivingSession()
+            sessionToStore.clone(drivingSession: objects)
+            sessionToStore.telemetry = sessionToStore.lapLast.telemetry
+            
+            fileName.append("-\(objects.laps.count)")
+        }
+        
         do {
-            let data = try encoder.encode(objects)
+            let data = try encoder.encode(sessionToStore)
             if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let fileURL = documentDirectory.appendingPathComponent("session-\(Int(objects.sessionStarted)).json")
+                let fileURL = documentDirectory.appendingPathComponent("\(fileName).json")
                 try data.write(to: fileURL)
                 print("Saved to JSON file at: \(fileURL)")
             }
@@ -186,11 +242,12 @@ extension DrivingSession {
     }
 
     /// Doesn't belong to this class
-    public static func loadFromJSONFile(sessionStarted: Int) -> DrivingSession? {
+    public static func loadFromJSONFile(fileName: String) -> DrivingSession? {
+        
         let decoder = JSONDecoder()
         do {
             if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let fileURL = documentDirectory.appendingPathComponent("session-\(sessionStarted).json")
+                let fileURL = documentDirectory.appendingPathComponent("\(fileName).json")
                 let data = try Data(contentsOf: fileURL)
                 let objects = try decoder.decode(DrivingSession.self, from: data)
                 
@@ -199,6 +256,36 @@ extension DrivingSession {
         } catch {
             print("Error loading objects from JSON: \(error)")
         }
+        
         return nil
+    }
+    
+    public static func loadMultiFileSessionJson(sessionId: String) -> DrivingSession? {
+        let drivingSession = DrivingSession()
+        var fileNumber = 1
+        
+        while (true) {
+            let fileName = "session-\(sessionId)-\(fileNumber)"
+            
+            guard let newData = DrivingSession.loadFromJSONFile(fileName: fileName) else {
+                if fileNumber == 1 {
+                    return nil
+                }
+                
+                return drivingSession
+            }
+            
+            myDebugPrint("Loaded data from partial file \(fileName)")
+            
+            if fileNumber == 1 {
+                drivingSession.clone(drivingSession: newData)
+            }
+            
+            if fileNumber > 1 {
+                drivingSession.addTelemetry(newData.telemetry)
+            }
+            
+            fileNumber += 1
+        }
     }
 }

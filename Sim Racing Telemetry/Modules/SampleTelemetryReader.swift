@@ -33,6 +33,10 @@ class SampleTelemetryReader: TelemetryReader {
 //        laps[3].lapTime = laps[4].telemetry[0].lapTimeLastMs
     }
     
+    func setHost(_ host: String) {
+        // Do nothing
+    }
+    
     func fetch() {
         cancel()
         telemetryItemToReturn = 0

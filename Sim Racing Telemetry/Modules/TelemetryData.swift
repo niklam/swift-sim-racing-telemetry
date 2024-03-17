@@ -135,8 +135,8 @@ class TelemetryData: Identifiable, Codable {
     
     var gearRatios: [Float] = []
     
-    /// Cars current location in the physical world
-    var location: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
+    /// Car's current location in the physical world
+    var position: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
     var velocity: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
     var rotation: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)
     var angularVelocity: SIMD3<Float> = SIMD3<Float>(0.0, 0.0, 0.0)

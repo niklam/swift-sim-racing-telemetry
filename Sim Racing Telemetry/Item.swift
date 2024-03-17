@@ -10,11 +10,9 @@ import SwiftData
 
 @Model
 final class Item {
-    var timestamp: Date
-//    var lap: Lap
+    var sessionUuid: UUID
     
-    init(timestamp: Date/*, lap: Lap*/) {
-        self.timestamp = timestamp
-//        self.lap = lap
+    init(sessionUuid: UUID) {
+        self.sessionUuid = sessionUuid
     }
 }

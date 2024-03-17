@@ -16,14 +16,15 @@ struct MainView: View {
     
     @State private var isConnected = false
     @State var packagesReveivedCount = 0
-//    var host: NWEndpoint.Host = "192.168.10.140"
     @StateObject private var viewModel = HostInputViewModel()
     
     @FocusState private var isStartListeningFocused: Bool
     
-//    var heartbeat: HeartbeatManager = HeartbeatManager(host: "localhost")
+    @State private var listener: TelemetryReader?
     
-    var listener: TelemetryReader = SampleTelemetryReader()
+    @State private var isReceivingTelemetry: Bool = false
+    @State private var lastTelemetryReceived: TimeInterval = 0
+    @State private var connectionStatusTimer: Timer?
     
     var body: some View {
         VStack {
@@ -36,6 +37,9 @@ struct MainView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(width: 200)
                     .multilineTextAlignment(.center)
+                Circle()
+                    .fill(isReceivingTelemetry ? .green : .red)
+                    .frame(width: 20, height: 20)
             }
             .padding(.top)
             
@@ -43,7 +47,7 @@ struct MainView: View {
                 Button(action: {
                     listeningButtonAction()
                 }) {
-                    Text(isConnected ? "Stop listening" : "Start listening")
+                    Text(isConnected ? "Stop session" : "Start session")
                 }
                 .focused($isStartListeningFocused)
             }
@@ -69,6 +73,16 @@ struct MainView: View {
             isStartListeningFocused = true
             openWindowRaceView()
             openWindowTelemetryView()
+            
+            connectionStatusTimer?.invalidate()
+            connectionStatusTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                let now = Date().timeIntervalSince1970
+                
+                self.isReceivingTelemetry = (now - self.lastTelemetryReceived < 1)
+            }
+        }
+        .onDisappear {
+            connectionStatusTimer?.invalidate()
         }
         .onReceive(telemetryDataNotificationPublisher, perform: { notification in
             DispatchQueue.main.async {
@@ -78,7 +92,13 @@ struct MainView: View {
                     return
                 }
                 
-                
+                self.lastTelemetryReceived = Date().timeIntervalSince1970
+                drivingSession.addTelemetry(telemetryData, onLapCompletion: { drivingSession, lapNumber in
+                    if lapNumber > 0 {
+                        self.telemetryViewDrivingSession.clone(drivingSession: drivingSession)
+                        DrivingSession.saveToJSONFile(objects: drivingSession)
+                    }
+                })
             }
         })
     }
@@ -88,16 +108,15 @@ struct MainView: View {
         self.isConnected.toggle()
         
         if isConnected == false {
-//            self.heartbeat.stopHeartbeat()
-            self.listener.cancel()
+            self.listener?.cancel()
         } else {
+            self.drivingSession.reset()
             
-//            self.listener.host = NWEndpoint.Host(self.viewModel.host)
-//            self.listener.listen()
-            self.listener.fetch()
+            if (self.listener == nil) {
+                self.listener = Gt7TelemetryReader(host: NWEndpoint.Host(viewModel.host), telemetryInterval: 100)
+            }
             
-//            self.heartbeat.host = self.viewModel.host
-//            self.heartbeat.startHeartbeat()
+            self.listener?.fetch()
         }
     }
     
@@ -110,7 +129,7 @@ struct MainView: View {
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
-//        newWindow.center()
+        newWindow.center()
 //        newWindow.setFrameAutosaveName("RacingView")
         newWindow.contentView = NSHostingView(rootView: contentView)
         newWindow.makeKeyAndOrderFront(nil)
@@ -122,6 +141,7 @@ struct MainView: View {
 
     func openWindowTelemetryView() {
         let contentView = TelemetryView()
+            .modelContainer(for: Item.self, inMemory: true)
             .environmentObject(telemetryViewDrivingSession)
         
         // Create the window and set the content view.
@@ -129,7 +149,7 @@ struct MainView: View {
             contentRect: NSRect(x: 0, y: 0, width: 900, height: 800),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
-//        newWindow.center()
+        newWindow.center()
 //        newWindow.setFrameAutosaveName("TelemetryAnalyzer")
         newWindow.contentView = NSHostingView(rootView: contentView)
         newWindow.makeKeyAndOrderFront(nil)
