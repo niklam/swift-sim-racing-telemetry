@@ -22,7 +22,7 @@ struct TelemetryView: View {
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                ForEach(Array(items.reversed().enumerated()), id: \.element.id) { index, item in
                     if let tmpSession = sessions[item.sessionUuid] {
                         NavigationLink {
                             SingleDrivingSessionTelemetryView(drivingSession: tmpSession)
@@ -52,9 +52,13 @@ struct TelemetryView: View {
         } detail: {
             Text("Hello!")
         }
-//        .onChange(of: drivingSession) { oldValue, newValue in
-//            addItem(lap: drivingSession.lapLast)
-//        }
+        .onChange(of: drivingSession, { oldValue, newValue in
+            if oldValue.sessionStarted == newValue.sessionStarted {
+                return
+            }
+                
+            addItem(drivingSession: drivingSession)
+        })
         .onAppear {
             let fm = FileManager.default
             let path = String(describing: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path)

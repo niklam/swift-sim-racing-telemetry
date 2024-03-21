@@ -33,6 +33,7 @@
 		85CAA60A2B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6092B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift */; };
 		85CAA6222B9B703500A85FBF /* Salsa20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6212B9B703500A85FBF /* Salsa20.swift */; };
 		85CAA6242B9B705E00A85FBF /* Gt7Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CAA6232B9B705E00A85FBF /* Gt7Data.swift */; };
+		85FF3D782BA9F782004EAE6A /* ZoomablePathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FF3D772BA9F782004EAE6A /* ZoomablePathView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		85CAA6092B9B6F8400A85FBF /* Sim_Racing_TelemetryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sim_Racing_TelemetryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		85CAA6212B9B703500A85FBF /* Salsa20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Salsa20.swift; sourceTree = "<group>"; };
 		85CAA6232B9B705E00A85FBF /* Gt7Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gt7Data.swift; sourceTree = "<group>"; };
+		85FF3D772BA9F782004EAE6A /* ZoomablePathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomablePathView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				85CAA5EB2B9B6F8200A85FBF /* RaceView.swift */,
 				85B793FF2B9DF473001911AB /* TelemetryView.swift */,
 				85463C002BA75EF200A3CD90 /* SingleDrivingSessionTelemetryView.swift */,
+				85FF3D772BA9F782004EAE6A /* ZoomablePathView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				8538DDEC2B9B9C2700733B74 /* UdpReader.swift in Sources */,
 				85CAA6242B9B705E00A85FBF /* Gt7Data.swift in Sources */,
 				85CAA6222B9B703500A85FBF /* Salsa20.swift in Sources */,
+				85FF3D782BA9F782004EAE6A /* ZoomablePathView.swift in Sources */,
 				85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */,
 				85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */,
 				85B793FD2B9DEAD1001911AB /* DrivingSession.swift in Sources */,

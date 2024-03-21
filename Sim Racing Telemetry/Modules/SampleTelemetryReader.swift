@@ -17,20 +17,11 @@ class SampleTelemetryReader: TelemetryReader {
     var dataQueueData: [TelemetryData] = []
     
     init() {
-//        laps.append(loadFromJSONFile(fileName: "sample-lap-1")!)
-//        laps.append(loadFromJSONFile(fileName: "sample-lap-2")!)
-//        laps.append(loadFromJSONFile(fileName: "sample-lap-3")!)
-//        laps.append(loadFromJSONFile(fileName: "sample-lap-4")!)
-//        laps.append(loadFromJSONFile(fileName: "sample-lap-5")!)
-//        
-//        laps.forEach { lap in
-//            telemetry.append(contentsOf: lap.telemetry)
-//        }
-//        
-//        laps[0].lapTime = laps[1].telemetry[0].lapTimeLastMs
-//        laps[1].lapTime = laps[2].telemetry[0].lapTimeLastMs
-//        laps[2].lapTime = laps[3].telemetry[0].lapTimeLastMs
-//        laps[3].lapTime = laps[4].telemetry[0].lapTimeLastMs
+        guard let sessionData = DrivingSession.loadMultiFileSessionJson(sessionId: "1710682718") else {
+            return
+        }
+        
+        telemetry = sessionData.telemetry
     }
     
     func setHost(_ host: String) {

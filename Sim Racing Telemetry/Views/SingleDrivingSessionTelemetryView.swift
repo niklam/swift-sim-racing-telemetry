@@ -11,10 +11,6 @@ import Charts
 struct SingleDrivingSessionTelemetryView: View {
     var drivingSession: DrivingSession
     
-    private var lap: Lap {
-        return drivingSession.laps.first ?? Lap()
-    }
-    
     private var minValue: Int {
         return lap.telemetry.first?.packageId ?? 0
     }
@@ -38,6 +34,8 @@ struct SingleDrivingSessionTelemetryView: View {
         return difference
     }
     
+    @State private var selectedLaps: [UUID] = []
+    
     private var lapSelectionModel: LapSelectionModel {
         let model = LapSelectionModel()
         
@@ -48,17 +46,33 @@ struct SingleDrivingSessionTelemetryView: View {
             
             let isFastestLap: Bool = lap.lapTime == drivingSession.lapFastest.lapTime
             
-            model.items.append(LapSelectionItem(lap: lap, isFastestLap: isFastestLap, isSelected: isFastestLap))
+            var shouldBeSelected = selectedLaps.contains(lap.id)
+            
+            if shouldBeSelected == false && selectedLaps.isEmpty && isFastestLap {
+                shouldBeSelected = true
+            }
+            
+            model.items.append(LapSelectionItem(lap: lap, isFastestLap: isFastestLap, isSelected: shouldBeSelected))
         }
         
         return model
+    }
+    
+    private var lap: Lap {
+        var lap = drivingSession.laps.first(where: { $0.id == selectedLaps.first })
+        
+        if lap == nil {
+            lap = drivingSession.lapLast
+        }
+        
+        return lap ?? Lap()
     }
     
     var body: some View {
         HStack {
             VStack {
                 HStack {
-                    Text("Lap \(drivingSession.currentlyOnLap)")
+                    Text("Lap \(lap.lapNumber)")
                         .font(.title)
                 }
                 
@@ -200,10 +214,28 @@ struct SingleDrivingSessionTelemetryView: View {
             }
             
             VStack {
-                LapSelectionCheckboxListView(viewModel: lapSelectionModel)
+                ZoomableContentView(telemetry: lap.telemetry)
+                
+                LapSelectionCheckboxListView(viewModel: lapSelectionModel) { id, newValue in
+                    if newValue == false {
+                        selectedLaps.removeAll(where: { $0 == id })
+                        return
+                    }
+                    
+                    selectedLaps.removeAll()
+                    
+                    selectedLaps.append(id)
+                    
+                    selectedLaps.forEach { id in
+                        let lap = drivingSession.laps.first(where: { $0.id == id })
+                        
+                        print("Lap \(lap?.lapNumber ?? 999)")
+                    }
+                }
             }
-            .frame(width: 200)
+            .frame(width: 500)
         }
+        .frame(width: 900, height:700)
     }
 }
 
@@ -212,13 +244,14 @@ struct SingleDrivingSessionTelemetryView: View {
 }
 
 struct LapSelectionItem: Identifiable {
-    let id: UUID = UUID()
+    let id: UUID
     var lap: Lap
     var name: String
     var isFastestLap: Bool
     var isSelected: Bool
     
     init(lap: Lap, isFastestLap: Bool = false, isSelected: Bool = false) {
+        self.id = lap.id
         self.lap = lap
         self.isFastestLap = isFastestLap
         self.isSelected = isSelected
@@ -232,18 +265,6 @@ class LapSelectionModel: ObservableObject {
     func toggleSelection(for itemId: UUID) {
         if let index = items.firstIndex(where: { $0.id == itemId }) {
             items[index].isSelected.toggle()
-        }
-    }
-}
-
-struct LapSelectionCheckboxListView: View {
-    @ObservedObject var viewModel = LapSelectionModel()
-
-    var body: some View {
-        List {
-            ForEach(viewModel.items) { item in
-                LapSelectionCheckboxRow(item: item, toggleSelection: viewModel.toggleSelection)
-            }
         }
     }
 }
@@ -263,6 +284,23 @@ struct LapSelectionCheckboxRow: View {
             
             LapTimeDisplay(milliseconds: item.lap.lapTime)
                 .foregroundColor(item.isFastestLap ? .purple : .gray)
+        }
+    }
+}
+
+struct LapSelectionCheckboxListView: View {
+    @ObservedObject var viewModel = LapSelectionModel()
+    var onChange: (UUID, Bool) -> Void
+
+    var body: some View {
+        List {
+            ForEach(viewModel.items) { item in
+                LapSelectionCheckboxRow(item: item, toggleSelection: viewModel.toggleSelection)
+                    .onChange(of: item.isSelected) { oldValue, newValue in
+                        print("Toggle \(item.id) went from \(oldValue) to \(newValue)")
+                        onChange(item.id, newValue)
+                    }
+            }
         }
     }
 }

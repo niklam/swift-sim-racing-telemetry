@@ -38,7 +38,7 @@ struct MainView: View {
                     .frame(width: 200)
                     .multilineTextAlignment(.center)
                 Circle()
-                    .fill(isReceivingTelemetry ? .green : .red)
+                    .fill(self.isReceivingTelemetry ? .green : .red)
                     .frame(width: 20, height: 20)
             }
             .padding(.top)
@@ -71,8 +71,8 @@ struct MainView: View {
         .frame(minWidth: 200, idealWidth: 800, idealHeight: 800)
         .onAppear {
             isStartListeningFocused = true
-            openWindowRaceView()
-            openWindowTelemetryView()
+//            openWindowRaceView()
+//            openWindowTelemetryView()
             
             connectionStatusTimer?.invalidate()
             connectionStatusTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
@@ -86,13 +86,15 @@ struct MainView: View {
         }
         .onReceive(telemetryDataNotificationPublisher, perform: { notification in
             DispatchQueue.main.async {
-//                myDebugPrint("Received telemetry")
                 
                 guard let telemetryData = notification.userInfo?["telemetryDataArray"] as? [TelemetryData] else {
                     return
                 }
                 
-                self.lastTelemetryReceived = Date().timeIntervalSince1970
+                if telemetryData.count > 0 {
+                    self.lastTelemetryReceived = Date().timeIntervalSince1970
+                }
+                
                 drivingSession.addTelemetry(telemetryData, onLapCompletion: { drivingSession, lapNumber in
                     if lapNumber > 0 {
                         self.telemetryViewDrivingSession.clone(drivingSession: drivingSession)
@@ -109,14 +111,17 @@ struct MainView: View {
         
         if isConnected == false {
             self.listener?.cancel()
+            preventSleep(shouldPrevent: false)
         } else {
             self.drivingSession.reset()
             
             if (self.listener == nil) {
                 self.listener = Gt7TelemetryReader(host: NWEndpoint.Host(viewModel.host), telemetryInterval: 100)
+//                self.listener = SampleTelemetryReader()
             }
             
             self.listener?.fetch()
+            preventSleep(shouldPrevent: true)
         }
     }
     
@@ -158,6 +163,23 @@ struct MainView: View {
         
         NSApp.activate(ignoringOtherApps: true)
     }
+    
+    func preventSleep(shouldPrevent: Bool) {
+        if shouldPrevent {
+            // Start caffeinate process to prevent sleep
+            let process = Process()
+            process.launchPath = "/usr/bin/caffeinate"
+            process.arguments = ["-di"]
+            process.launch()
+        } else {
+            // Kill the caffeinate process to allow sleep again
+            let killProcess = Process()
+            killProcess.launchPath = "/usr/bin/killall"
+            killProcess.arguments = ["caffeinate"]
+            killProcess.launch()
+        }
+    }
+
 }
 
 

@@ -70,7 +70,7 @@ class DrivingSession: NSObject, Identifiable, ObservableObject, Codable {
             name = formattedDate
         }
         
-        var storedTelemetry: [TelemetryData] = try container.decode([TelemetryData].self, forKey: .telemetry)
+        let storedTelemetry: [TelemetryData] = try container.decode([TelemetryData].self, forKey: .telemetry)
         
         super.init()
         
@@ -95,7 +95,7 @@ extension DrivingSession {
         
         telemetryCollection.forEach { telemetry in
             
-            var likelyRestarted = currentLap > 0 && telemetry.currentLapNumber == 0
+//            var likelyRestarted = currentLap > 0 && telemetry.currentLapNumber == 0
             
             if telemetry.isPaused {
                 return
@@ -119,7 +119,7 @@ extension DrivingSession {
             self.lapCurrent.telemetry.append(telemetry)
             self.telemetry.append(telemetry)
             
-            var raceIsOver = (self.totalLaps > 0 && telemetry.currentLapNumber > self.totalLaps)
+//            var raceIsOver = (self.totalLaps > 0 && telemetry.currentLapNumber > self.totalLaps)
             
             if currentLap != telemetry.currentLapNumber {
                 if currentLap != 0 {
@@ -152,6 +152,7 @@ extension DrivingSession {
     public func reset() {
         myDebugPrint("DrivingSession.reset")
         
+        id = UUID()
         sessionStarted = Date().timeIntervalSince1970
         totalLaps = 0
         currentlyOnLap = 0
