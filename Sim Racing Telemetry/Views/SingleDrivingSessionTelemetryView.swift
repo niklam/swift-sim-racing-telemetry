@@ -70,151 +70,89 @@ struct SingleDrivingSessionTelemetryView: View {
     
     var body: some View {
         HStack {
-            VStack {
-                HStack {
-                    Text("Lap \(lap.lapNumber)")
-                        .font(.title)
-                }
-                
-                HStack {
-                    Text("Lap time: ")
-                        .padding(.leading)
-                    LapTimeDisplay(milliseconds: lap.lapTime)
-                    //                .foregroundColor(drivingSession.lapLast.lapTime <= drivingSession.lapFastest.lapTime ? .purple : .black)
-                    
-                    Text("Fastest lap: ")
-                    LapTimeDisplay(milliseconds: drivingSession.lapFastest.lapTime)
-                        .foregroundColor(.purple)
-                    
-                    //                Text("Calculated time: ")
-                    //                    .padding(.leading)
-                    //                LapTimeDisplay(milliseconds: Int(round(Float(drivingSession.lapLast.telemetry.count) * Float(1000/119.931234))))
-                    //            LapTimeDisplay(milliseconds: calculatedLapTime)
-                }
-                
-                VStack {
-                    Text("Throttle and Break").bold()
-                    Chart {
-                        ForEach(0..<lap.telemetry.count, id: \.self) { index in
-                            let item = self.lap.telemetry[index]
-                            
-                            LineMark(x: .value("Tick", index), y: .value("Throttle", item.throttle),
-                                     series: .value("Series", 1)
-                            )
-                            .foregroundStyle(by: .value("Value", "Throttle"))
-                            
-                            LineMark(x: .value("Tick", index), y: .value("Brake", item.brake),
-                                     series: .value("Series", 2)
-                            )
-                            .foregroundStyle(by: .value("Value", "Brake"))
-                        }
-                    }
-                    .chartForegroundStyleScale([
-                        "Throttle": .green,
-                        "Brake": .red
-                    ]).chartYAxis {
-                        AxisMarks(
-                            values: [0, 50, 100]
-                        ) {
-                            //                        AxisValueLabel(format: Decimal.FormatStyle.Percent.percent.scale(1))
-                            AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+            GeometryReader { geometry in
+                ScrollView(.vertical, showsIndicators: true) {
+                    VStack {
+                        // Title
+                        HStack {
+                            Text("Lap \(lap.lapNumber)")
+                                .font(.title)
                         }
                         
-                        AxisMarks(
-                            values: [25, 75]
-                        ) {
-                            AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [2,4]))
-                        }
-                    }
-                    .chartYScale(domain: [0, 100])
-                    //                .chartXAxis(.hidden)
-                    .chartXScale(domain: [0, lap.telemetry.count], type: .linear)
-                    .chartXVisibleDomain(length: visibleTicks)
-                    .chartScrollableAxes(.horizontal)
-                }
-                .padding(20)
-                .frame(minHeight: 200)
-                
-                VStack {
-                    Text("Speed").bold()
-                    Chart {
-                        ForEach(0..<lap.telemetry.count, id: \.self) { index in
-                            let item = self.lap.telemetry[index]
+                        // Lap time
+                        HStack {
+                            Text("Lap time: ")
+                                .padding(.leading)
+                            LapTimeDisplay(milliseconds: lap.lapTime)
+                            //                .foregroundColor(drivingSession.lapLast.lapTime <= drivingSession.lapFastest.lapTime ? .purple : .black)
                             
-                            LineMark(x: .value("Tick", index), y: .value("Speed", item.carSpeed),
-                                     series: .value("Series", 1)
-                            )
-                            .foregroundStyle(by: .value("Value", "Speed"))
-                        }
-                    }
-                    .chartForegroundStyleScale([
-                        "Speed": .green
-                    ])
-                    .chartYAxis {
-                        AxisMarks(position: .leading, values: .automatic){
-                            axis in
-                            AxisTick()
-                            AxisGridLine()
-                            //                        AxisValueLabel()
-                        }
-                        AxisMarks(position: .trailing, values: .automatic){
-                            axis in
-                            AxisTick()
-                            AxisGridLine()
-                            //                        AxisValueLabel()
-                        }
-                    }
-                    //                .chartYScale(domain: [0, lap.telemetry.first?.rpmRevLimiter ?? 10000])
-                    //                .chartXAxis(.hidden)
-                    .chartXScale(domain: [0, lap.telemetry.count], type: .linear)
-                    .chartXVisibleDomain(length: visibleTicks)
-                    .chartScrollableAxes(.horizontal)
-                }
-                .padding(20)
-                .frame(minHeight: 200)
-                
-                
-                VStack {
-                    Text("RPM").bold()
-                    Chart {
-                        ForEach(0..<lap.telemetry.count, id: \.self) { index in
-                            let item = self.lap.telemetry[index]
+                            Text("Fastest lap: ")
+                            LapTimeDisplay(milliseconds: drivingSession.lapFastest.lapTime)
+                                .foregroundColor(.purple)
                             
-                            LineMark(x: .value("Tick", index), y: .value("RPM", item.rpm),
-                                     series: .value("Series", 2)
-                            )
-                            .foregroundStyle(by: .value("Value", "RPM"))
+                            //                Text("Calculated time: ")
+                            //                    .padding(.leading)
+                            //                LapTimeDisplay(milliseconds: Int(round(Float(drivingSession.lapLast.telemetry.count) * Float(1000/119.931234))))
+                            //            LapTimeDisplay(milliseconds: calculatedLapTime)
                         }
+                        
+                        // Throttle and brake
+                        VStack {
+                            let throttle: [DataPoint] = DataSampler.sampleDataPoints(from: lap.telemetry.map({ telemetryData in
+                                DataPoint(value: Double(telemetryData.throttle))
+                            }), graphWidth: Int(floor(geometry.size.width)))
+                            let brake: [DataPoint] = DataSampler.sampleDataPoints(from: lap.telemetry.map({ telemetryData in
+                                DataPoint(value: Double(telemetryData.brake))
+                            }), graphWidth: Int(floor(geometry.size.width)))
+                            
+                            ThrottleAndBrakeView(throttle: throttle, brake: brake)
+                        }
+                        .padding(20)
+                        .frame(width: geometry.size.width, height: 250)
+                        
+                        // Speed
+                        VStack {
+                            let speed: [DataPoint] = DataSampler.sampleDataPoints(from: lap.telemetry.map({ telemetryData in
+                                DataPoint(value: Double(telemetryData.carSpeed))
+                            }), graphWidth: Int(floor(geometry.size.width)))
+                            
+                            SpeedView(speed: speed)
+                        }
+                        .padding(20)
+                        .frame(width: geometry.size.width, height: 250)
+                        
+                        // RPM
+                        VStack {
+                            let rpm: [DataPoint] = DataSampler.sampleDataPoints(from: lap.telemetry.map({ telemetryData in
+                                DataPoint(value: Double(telemetryData.rpm))
+                            }), graphWidth: Int(floor(geometry.size.width)))
+                            
+                            RpmView(rpm: rpm)
+                        }
+                        .padding(20)
+                        .frame(width: geometry.size.width, height: 250)
                     }
-                    .chartForegroundStyleScale([
-                        "RPM": .red
-                    ])
-                    .chartYAxis {
-                        AxisMarks(position: .leading, values: .automatic){
-                            axis in
-                            AxisTick()
-                            AxisGridLine()
-                            //                        AxisValueLabel()
-                        }
-                        AxisMarks(position: .trailing, values: .automatic){
-                            axis in
-                            AxisTick()
-                            AxisGridLine()
-                            //                        AxisValueLabel()
-                        }
-                    }
-                    //                .chartYScale(domain: [0, lap.telemetry.first?.rpmRevLimiter ?? 10000])
-                    //                .chartXAxis(.hidden)
-                    .chartXScale(domain: [0, lap.telemetry.count], type: .linear)
-                    .chartXVisibleDomain(length: visibleTicks)
-                    //                .chartScrollableAxes(.horizontal)
                 }
-                .padding(20)
-                .frame(minHeight: 200)
             }
-            
+                
             VStack {
-                ZoomableContentView(telemetry: lap.telemetry)
+                let coordinates: [CoordinateDataPoint] = DataSampler.sampleDataPoints(from: lap.telemetry.map({ telemetryData in
+                    var state: ThrottleBrakeState = .onThrottle
+                    
+                    if telemetryData.brake > 0 {
+                        state = .onBrake
+                    }
+                    
+                    if telemetryData.brake == 0 && telemetryData.throttle == 0 {
+                        state = .coasting
+                    }
+                    
+                    return CoordinateDataPoint(coordinate: telemetryData.position, state: state)
+                }), graphWidth: 1000)
+                
+                ScrollView(showsIndicators: true) {
+                    ZoomableContentView(coordinates: coordinates)
+                }
                 
                 LapSelectionCheckboxListView(viewModel: lapSelectionModel) { id, newValue in
                     if newValue == false {
@@ -233,9 +171,9 @@ struct SingleDrivingSessionTelemetryView: View {
                     }
                 }
             }
-            .frame(width: 500)
+            .frame(width: 250)
         }
-        .frame(width: 900, height:700)
+//        .frame(width: .infinity, height:.infinity)
     }
 }
 
@@ -302,5 +240,122 @@ struct LapSelectionCheckboxListView: View {
                     }
             }
         }
+    }
+}
+
+struct ThrottleAndBrakeView: View {
+    var throttle: [DataPoint]
+    var brake: [DataPoint]
+    
+    var body: some View {
+        Text("Throttle and Brake").bold()
+        
+        Chart {
+            ForEach(0..<throttle.count, id: \.self) { i in
+                LineMark(x: .value("Tick", i), y: .value("Throttle", throttle[i].value),
+                         series: .value("Series", 1)
+                )
+                .foregroundStyle(by: .value("Value", "Throttle"))
+                
+                LineMark(x: .value("Tick", i), y: .value("Brake", brake[i].value),
+                         series: .value("Series", 2)
+                )
+                .foregroundStyle(by: .value("Value", "Brake"))
+            }
+        }
+        .chartForegroundStyleScale([
+            "Throttle": .green,
+            "Brake": .red
+        ]).chartYAxis {
+            AxisMarks(
+                values: [0, 50, 100]
+            ) {
+                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+            }
+            
+            AxisMarks(
+                values: [25, 75]
+            ) {
+                AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [2,4]))
+            }
+        }
+        .chartYScale(domain: [0, 100])
+        .chartXScale(domain: [0, throttle.count], type: .linear)
+        .chartXVisibleDomain(length: throttle.count)
+        .chartScrollableAxes(.horizontal)
+    }
+}
+
+struct SpeedView: View {
+    var speed: [DataPoint]
+    
+    var body: some View {
+        Text("Throttle and Brake").bold()
+        
+        Chart {
+            ForEach(0..<speed.count, id: \.self) { i in
+                LineMark(x: .value("Tick", i), y: .value("Speed", speed[i].value),
+                         series: .value("Series", 1)
+                )
+                .foregroundStyle(by: .value("Value", "Speed"))
+            }
+        }
+        .chartForegroundStyleScale([
+            "Speed": .green
+        ])
+//        .chartYAxis {
+//            AxisMarks(
+//                values: [0, 50, 100]
+//            ) {
+//                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+//            }
+//            
+//            AxisMarks(
+//                values: [25, 75]
+//            ) {
+//                AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [2,4]))
+//            }
+//        }
+//        .chartYScale(domain: [0, 100])
+        .chartXScale(domain: [0, speed.count], type: .linear)
+        .chartXVisibleDomain(length: speed.count)
+        .chartScrollableAxes(.horizontal)
+    }
+}
+
+struct RpmView: View {
+    var rpm: [DataPoint]
+    
+    var body: some View {
+        Text("RPM").bold()
+        
+        Chart {
+            ForEach(0..<rpm.count, id: \.self) { i in
+                LineMark(x: .value("Tick", i), y: .value("RPM", rpm[i].value),
+                         series: .value("Series", 1)
+                )
+                .foregroundStyle(by: .value("Value", "RPM"))
+            }
+        }
+        .chartForegroundStyleScale([
+            "RPM": .red
+        ])
+//        .chartYAxis {
+//            AxisMarks(
+//                values: [0, 50, 100]
+//            ) {
+//                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+//            }
+//            
+//            AxisMarks(
+//                values: [25, 75]
+//            ) {
+//                AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [2,4]))
+//            }
+//        }
+//        .chartYScale(domain: [0, 100])
+        .chartXScale(domain: [0, rpm.count], type: .linear)
+        .chartXVisibleDomain(length: rpm.count)
+        .chartScrollableAxes(.horizontal)
     }
 }

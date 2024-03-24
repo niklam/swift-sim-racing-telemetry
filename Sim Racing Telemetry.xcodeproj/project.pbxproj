@@ -17,6 +17,7 @@
 		859C1B3E2B9DFF410074304B /* HostInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */; };
 		85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A9A3AF2B9CA085006BEDA2 /* TimeDisplay.swift */; };
 		85A9A3B22B9CA1BE006BEDA2 /* LapTimeDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A9A3B12B9CA1BE006BEDA2 /* LapTimeDisplay.swift */; };
+		85AA540F2BAF0972003D1295 /* DataSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AA540E2BAF0972003D1295 /* DataSampler.swift */; };
 		85ACE7E92B9DACF0007516D2 /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ACE7E82B9DACF0007516D2 /* Lap.swift */; };
 		85ACE7F12B9DB330007516D2 /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85ACE7F02B9DB330007516D2 /* Clibsodium */; };
 		85ACE7F32B9DB330007516D2 /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 85ACE7F22B9DB330007516D2 /* Sodium */; };
@@ -64,6 +65,7 @@
 		859C1B3D2B9DFF410074304B /* HostInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInputViewModel.swift; sourceTree = "<group>"; };
 		85A9A3AF2B9CA085006BEDA2 /* TimeDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDisplay.swift; sourceTree = "<group>"; };
 		85A9A3B12B9CA1BE006BEDA2 /* LapTimeDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeDisplay.swift; sourceTree = "<group>"; };
+		85AA540E2BAF0972003D1295 /* DataSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSampler.swift; sourceTree = "<group>"; };
 		85ACE7E82B9DACF0007516D2 /* Lap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lap.swift; sourceTree = "<group>"; };
 		85B793FC2B9DEAD1001911AB /* DrivingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingSession.swift; sourceTree = "<group>"; };
 		85B793FF2B9DF473001911AB /* TelemetryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryView.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				8502C23C2BA0C6AF00E33686 /* Gt7TelemetryReader.swift */,
 				8502C23E2BA34B8000E33686 /* SampleTelemetryReader.swift */,
 				855856492BA4AD4D00340230 /* DebugPrint.swift */,
+				85AA540E2BAF0972003D1295 /* DataSampler.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				85CAA6242B9B705E00A85FBF /* Gt7Data.swift in Sources */,
 				85CAA6222B9B703500A85FBF /* Salsa20.swift in Sources */,
 				85FF3D782BA9F782004EAE6A /* ZoomablePathView.swift in Sources */,
+				85AA540F2BAF0972003D1295 /* DataSampler.swift in Sources */,
 				85CAA5EA2B9B6F8200A85FBF /* Sim_Racing_TelemetryApp.swift in Sources */,
 				85A9A3B02B9CA085006BEDA2 /* TimeDisplay.swift in Sources */,
 				85B793FD2B9DEAD1001911AB /* DrivingSession.swift in Sources */,

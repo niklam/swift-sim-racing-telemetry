@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 
 struct Coordinate {
-    var x: Double
-    var y: Double
+    var x: Float
+    var y: Float
 }
 
 struct PathSegment {
@@ -20,8 +20,8 @@ struct PathSegment {
 }
 
 struct ImageSize {
-    var width: Int = 0
-    var height: Int = 0
+    var width: Double = 0
+    var height: Double = 0
 }
 
 
@@ -32,8 +32,13 @@ struct ZoomablePathView: View {
     @State private var scale: CGFloat
     @State private var location: CGPoint
     
+    @State private var dragStart: CGPoint? = nil
+    
     init(imageSize: ImageSize, segments: [PathSegment]) {
         self.imageSize = imageSize
+        self.imageSize.width += 50
+        self.imageSize.height += 50
+        
         self.segments = segments
         self.scale = 1.0
         self.location = CGPoint(x: imageSize.width / 2, y: imageSize.height / 2)
@@ -46,33 +51,45 @@ struct ZoomablePathView: View {
                     var path = Path()
                     
                     guard let firstCoordinate = segment.coordinates.first else { continue }
-                    path.move(to: CGPoint(x: firstCoordinate.x * scale, y: firstCoordinate.y * scale))
+                    path.move(to: CGPoint(x: CGFloat(firstCoordinate.x + 25) * scale, y: CGFloat(firstCoordinate.y + 25) * scale))
                     
                     for coordinate in segment.coordinates.dropFirst() {
-                        path.addLine(to: CGPoint(x: coordinate.x * scale, y: coordinate.y * scale))
+                        path.addLine(to: CGPoint(x: CGFloat(coordinate.x + 25) * scale, y: CGFloat(coordinate.y + 25) * scale))
                     }
                     
                     context.stroke(path, with: .color(segment.color), lineWidth: 2)
                 }
             }
+            .background(Color.yellow)
             .frame(width: CGFloat(imageSize.width) * scale, height: CGFloat(imageSize.height) * scale)
 //            .clipped()
             .position(location)
             .gesture(
-                DragGesture().onChanged { value in
-                    debugPrint(value)
-                    self.location = value.location
-                }
+                DragGesture()
+                    .onChanged { value in
+                        if (self.dragStart == nil) {
+                            self.dragStart = value.startLocation
+                        }
+                        
+                        let newLocation: CGPoint = CGPoint(
+                            x: self.location.x + value.location.x - (self.dragStart?.x ?? 0),
+                            y: self.location.y + value.location.y - (self.dragStart?.y ?? 0)
+                        )
+                        self.location = newLocation
+                        self.dragStart = value.location
+                    }
+                    .onEnded({ value in
+                        self.dragStart = nil
+                    })
             )
             .onAppear {
-                setupScrollGesture()
+//                setupScrollGesture()
             }
         }
 //        .gesture(MagnificationGesture().onChanged { value in
 //            //debugPrint(value)
 //            scale = scale + value
 //        })
-        .background()
     }
     
     private func setupScrollGesture() {
@@ -89,82 +106,113 @@ struct ZoomablePathView: View {
 
 
 struct ZoomableContentView: View {
-    let telemetry: [TelemetryData]
+    let coordinates: [CoordinateDataPoint]
     
     var imageSize: ImageSize {
-        var imageSize = ImageSize()
+        var imageSize = ImageSize(width: 100, height: 100)
         
-        var maxX: Float = 0
-        var minX: Float = 0
-        var maxY: Float = 0
-        var minY: Float = 0
+        let xs = coordinates.map { $0.coordinate.x }
+        let ys = coordinates.map { $0.coordinate.z }
         
-        telemetry.forEach { telemetry in
-//            debugPrint(telemetry.position)
-            minX = min(minX, telemetry.position.x)
-            minY = min(minY, telemetry.position.z)
-            
-            maxX = max(maxX, telemetry.position.x)
-            maxY = max(maxY, telemetry.position.z)
+        if let minX = xs.min(), let maxX = xs.max(), let minY = ys.min(), let maxY = ys.max() {
+            imageSize.width = Double(maxX - minX)
+            imageSize.height = Double(maxY - minY)
         }
         
-        imageSize.width = Int(ceil(maxX * 2.0 + 20.0))
-        imageSize.height = Int(ceil(maxY * 2 + 20))
-        
         return imageSize
+    }
+    
+    private var adjustedCoordinates: [CoordinateDataPoint] {
+        return adjustCoordinatesForCentering(coordinates: coordinates, imageSize: imageSize)
     }
     
     private var segments: [PathSegment] {
         var segments: [PathSegment] = []
         
-        if telemetry.count == 0 {
+        if adjustedCoordinates.count == 0 {
             return segments
         }
         
-        var prevTelemetry: TelemetryData = telemetry.first!
+        var prevCoordinate: CoordinateDataPoint = adjustedCoordinates.first!
         
-        telemetry.forEach { telemetry in
+        adjustedCoordinates.forEach { coordinate in
             let segment = PathSegment(
                 coordinates: [
                     Coordinate(
-                        x: Double(prevTelemetry.position.x + Float(imageSize.width / 2)),
-                        y: Double(prevTelemetry.position.z + Float(imageSize.height / 2))
+//                        x: Double(prevCoordinate.coordinate.x + Float(imageSize.width / 2)),
+//                        y: Double(prevCoordinate.coordinate.z + Float(imageSize.height / 2))
+                        x: prevCoordinate.coordinate.x, y: prevCoordinate.coordinate.z
                     ),
                     Coordinate(
-                        x: Double(telemetry.position.x + Float(imageSize.width / 2)),
-                        y: Double(telemetry.position.z + Float(imageSize.height / 2))
+//                        x: Double(coordinate.coordinate.x + Float(imageSize.width / 2)),
+//                        y: Double(coordinate.coordinate.z + Float(imageSize.height / 2))
+                        x: coordinate.coordinate.x, y: coordinate.coordinate.z
                     )
                 ],
-                color: getColor(telemetry: telemetry)
+                color: getColor(state: coordinate.state)
             )
             
             segments.append(segment)
             
-            prevTelemetry = telemetry
+            prevCoordinate = coordinate
         }
-        
-        debugPrint()
         
         return segments
     }
     
     var body: some View {
         ZoomablePathView(imageSize: imageSize, segments: segments)
+            .background(.white)
     }
     
-    func getColor(telemetry: TelemetryData) -> Color {
-        if telemetry.brake > 0 {
+    func getColor(state: ThrottleBrakeState) -> Color {
+        if state == .onBrake {
             return .red
         }
         
-        if telemetry.throttle > 0 {
+        if state == .onThrottle {
             return .green
         }
         
         return .blue
     }
+    
+    func adjustCoordinatesForCentering(coordinates: [CoordinateDataPoint], imageSize: ImageSize) -> [CoordinateDataPoint] {
+        guard !coordinates.isEmpty else { return [] }
+
+        // Calculate bounds of the drawing
+        let minX = coordinates.min(by: { $0.coordinate.x < $1.coordinate.x })?.coordinate.x ?? 0
+        let maxX = coordinates.max(by: { $0.coordinate.x < $1.coordinate.x })?.coordinate.x ?? 0
+        let minY = coordinates.min(by: { $0.coordinate.y < $1.coordinate.y })?.coordinate.y ?? 0
+        let maxY = coordinates.max(by: { $0.coordinate.y < $1.coordinate.y })?.coordinate.y ?? 0
+
+        // Calculate the center of the drawing
+        let drawingCenterX = Double((minX + maxX) / 2)
+        let drawingCenterY = Double((minY + maxY) / 2)
+
+        // Calculate the center of the canvas
+        let imageCenterX = imageSize.width / 2
+        let imageCenterY = imageSize.height / 2
+
+        // Calculate the offset needed to center the drawing on the canvas
+        let offsetX = imageCenterX - drawingCenterX
+        let offsetY = imageCenterY - drawingCenterY
+
+        // Adjust coordinates with the calculated offset
+        let adjustedCoordinates = coordinates.map {
+            CoordinateDataPoint(
+                coordinate: SIMD3<Float>(
+                    x: $0.coordinate.x + Float(offsetX),
+                    y: $0.coordinate.y + Float(offsetY),
+                    z: $0.coordinate.z + Float(offsetY)
+                ),
+                state: $0.state
+            ) }
+
+        return adjustedCoordinates
+    }
 }
 
-#Preview {
-    ZoomableContentView(telemetry: DrivingSession.sampleSession1.laps[2].telemetry)
-}
+//#Preview {
+//    ZoomableContentView(telemetry: DrivingSession.sampleSession1.laps[2].telemetry)
+//}
